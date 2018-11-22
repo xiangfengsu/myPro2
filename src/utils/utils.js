@@ -160,3 +160,13 @@ export function formatterTableList(data, keyList = []) {
     }),
   };
 }
+export function dateFormatter(date, join = '~') {
+  if(!date){
+    return '';
+  }
+  if (Array.isArray(date)) {
+    const [firstDate, lastDate] = date;
+    return `${firstDate.format('YYYY-MM-DD')}${join}${lastDate.format('YYYY-MM-DD')}`;
+  }
+  return date.format('YYYY-MM-DD');
+}

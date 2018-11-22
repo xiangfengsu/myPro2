@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 import { getPageQuery } from '@/utils/utils';
-import { accountLogin, accountLoginOut } from '../service/login';
+import { accountLogin, accountLoginOut } from '@/services/login';
 
 export default {
   namespace: 'login',
@@ -32,14 +32,7 @@ export default {
           },
         });
         if (code === 200) {
-          const urlParams = new URL(window.location.href);
-          const params = getPageQuery();
-          const { redirect } = params;
-          if (redirect) {
-            urlParams.searchParams.delete('redirect');
-            window.history.replaceState(null, 'redirect', urlParams.href);
-          }
-          yield put(routerRedux.replace(redirect || '/'));
+          yield put(routerRedux.replace('/'));
         }
       }
     },
@@ -56,7 +49,8 @@ export default {
         yield put({
           type: 'changeLoginStatus',
           payload: {
-            status: undefined
+            status: false,
+            currentAuthority: 'guest',
           },
         });
         yield put(routerRedux.push('/user/login'));
