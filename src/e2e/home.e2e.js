@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import SettingDrawer from '@/components/SettingDrawer';
+import defaultSettings from '@/defaultSettings';
 
 const { title } = defaultSettings;
 const BASE_URL = `http://localhost:${process.env.PORT || 8000}`;

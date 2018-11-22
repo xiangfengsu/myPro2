@@ -56,8 +56,7 @@ export default {
         yield put({
           type: 'changeLoginStatus',
           payload: {
-            status: false,
-            currentAuthority: 'guest',
+            status: undefined
           },
         });
         yield put(routerRedux.push('/user/login'));

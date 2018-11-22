@@ -8,7 +8,6 @@ const formTypeRoute =
           name: '表单类型',
           icon: 'book',
           path: 'formItemType/formItemTypePage',
-          children: [],
           menutype: 2,
           component: './Sys/FormType/route/FormType',
         },
@@ -21,7 +20,7 @@ export const UserRouter = [
     component: '../core/layouts/UserLayout',
     routes: [
       { path: '/user', redirect: '/user/login' },
-      { path: '/user/login', component: './Sys/Login/route/Login' },
+      { path: '/user/login', component: './Sys/Login/route/Login', menutype: 2 },
     ],
   },
 ];
@@ -77,16 +76,19 @@ export const AppRouter = [
         path: '/exception/403',
         name: '403',
         component: './Exception/403',
+        menutype: 2,
       },
       {
         path: '/exception/404',
         name: '404',
         component: './Exception/404',
+        menutype: 2,
       },
       {
         path: '/exception/500',
         name: '500',
         component: './Exception/500',
+        menutype: 2,
       },
     ],
   },
@@ -95,6 +97,7 @@ export const AppRouter = [
     name: '个人中心',
     hideInMenu: true,
     component: './Sys/User/Settings/route/Settings',
+    menutype: 2,
   },
   {
     component: '404',

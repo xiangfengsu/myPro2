@@ -33,8 +33,9 @@ function formatter(data) {
       const result = {
         ...item,
       };
-      if (item.routes) {
-        const children = formatter(item.routes);
+      const child = item.children || item.routes;
+      if (child) {
+        const children = formatter(child);
         result.children = children;
       }
       delete result.routes;

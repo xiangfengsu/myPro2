@@ -3,24 +3,24 @@ import RouterConfig from '../../config/router.config';
 
 const BASE_URL = `http://localhost:${process.env.PORT || 8000}`;
 
-function formatter(data) {
-  return data
-    .reduce((pre, item) => {
-      if (item.routes) {
-        return pre.concat(formatter(item.routes));
+const formatter = (menu = []) =>
+  menu
+    .reduce((preItem, currItem) => {
+      preItem.push(currItem);
+      const child = currItem.children || currItem.routes;
+      if (child) {
+        return preItem.concat(formatter(child));
       }
-      pre.push(item.path);
-      return pre;
+      return preItem;
     }, [])
-    .filter(item => item);
-}
+    .filter(item => item.menutype === 2 && !(/\/\buser\b/ig.test(item.path)));
 
 describe('Homepage', () => {
   let browser;
   let page;
 
   const testPage = path => async () => {
-    await page.goto(`${BASE_URL}${path}`, { waitUntil: 'networkidle2' });
+    await page.goto(`${BASE_URL}/#${path}`, { waitUntil: 'networkidle2' });
     const haveFooter = await page.evaluate(
       () => document.getElementsByTagName('footer').length > 0
     );
@@ -32,12 +32,13 @@ describe('Homepage', () => {
     browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     page = await browser.newPage();
   });
-
   RouterConfig.forEach(({ routes = [] }) => {
     formatter(routes).forEach(route => {
-      it(`test pages ${route}`, testPage(route));
+      const { path } = route;
+      it(`test pages ${path}`, testPage(path));
     });
   });
+
 
   afterAll(() => browser.close());
 });
