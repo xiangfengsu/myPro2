@@ -75,19 +75,19 @@ export const AppRouter = [
       {
         path: '/exception/403',
         name: '403',
-        component: './Exception/403',
+        component: './Sys/Exception/403',
         menutype: 2,
       },
       {
         path: '/exception/404',
         name: '404',
-        component: './Exception/404',
+        component: './Sys/Exception/404',
         menutype: 2,
       },
       {
         path: '/exception/500',
         name: '500',
-        component: './Exception/500',
+        component: './Sys/Exception/500',
         menutype: 2,
       },
     ],

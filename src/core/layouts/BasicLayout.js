@@ -14,7 +14,7 @@ import SiderMenu from '@/components/SiderMenu';
 import Authorized from '@/utils/Authorized';
 import SettingDrawer from '@/components/SettingDrawer';
 import logo from '@/assets/logo.svg';
-import Exception403 from '@/pages/Exception/403';
+import Exception403 from '@/pages/Sys/Exception/403';
 import defaultSettings from '@/defaultSettings';
 import Footer from './Footer';
 import Header from './Header';
