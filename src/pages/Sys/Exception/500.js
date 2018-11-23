@@ -1,14 +1,14 @@
 import React from 'react';
-import { formatMessage } from 'umi/locale';
+import { Button } from 'antd';
 import Link from 'umi/link';
+import router from 'umi/router';
 import Exception from '@/components/Exception';
 
 const Exception500 = () => (
   <Exception
     type="500"
-    desc={formatMessage({ id: 'app.exception.description.500' })}
-    linkElement={Link}
-    backText={formatMessage({ id: 'app.exception.back' })}
+    desc="抱歉，服务器出错了"
+    actions={<Button type="primary" onClick={()=>{router.goBack()}}>刷新</Button>}
   />
 );
 

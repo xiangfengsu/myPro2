@@ -1,14 +1,14 @@
 import React from 'react';
-import { formatMessage } from 'umi/locale';
+import { Button } from 'antd';
 import Link from 'umi/link';
+import router from 'umi/router';
 import Exception from '@/components/Exception';
 
 const Exception404 = () => (
   <Exception
     type="404"
-    desc={formatMessage({ id: 'app.exception.description.404' })}
-    linkElement={Link}
-    backText={formatMessage({ id: 'app.exception.back' })}
+    desc="抱歉，你访问的接口或页面不存在"
+    actions={<Button type="primary" onClick={()=>{router.goBack()}}>刷新</Button>}
   />
 );
 
