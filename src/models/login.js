@@ -1,7 +1,7 @@
 import { routerRedux } from 'dva/router';
 import { getPageQuery } from '@/utils/utils';
 import { accountLogin, accountLoginOut } from '@/services/login';
-
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 export default {
   namespace: 'login',
 
@@ -32,29 +32,25 @@ export default {
           },
         });
         if (code === 200) {
+          yield put({
+            type: 'changeLoginStatus',
+            status: 'ok',
+          });
+          yield call(delay, 300);
           yield put(routerRedux.replace('/'));
         }
       }
     },
     *logout(_, { call, put, select }) {
       yield call(accountLoginOut, '/sys/logout');
-      try {
-        // get location pathname
-        const urlParams = new URL(window.location.href);
-        const pathname = yield select(state => state.routing.location.pathname);
-        // add the parameters in the url
-        urlParams.searchParams.set('redirect', pathname);
-        window.history.replaceState(null, 'login', urlParams.href);
-      } finally {
-        yield put({
-          type: 'changeLoginStatus',
-          payload: {
-            status: false,
-            currentAuthority: 'guest',
-          },
-        });
-        yield put(routerRedux.push('/user/login'));
-      }
+      yield put({
+        type: 'changeLoginStatus',
+        payload: {
+          status: undefined,
+          statusCode: undefined,
+        },
+      });
+      yield put(routerRedux.push('/user/login'));
     },
   },
 

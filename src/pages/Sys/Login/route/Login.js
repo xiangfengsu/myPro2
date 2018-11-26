@@ -41,7 +41,7 @@ class LoginPage extends Component {
   };
 
   renderMessage = content => (
-    <Alert style={{ marginBottom: 24 }} message={content} type="error" sh />
+    <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
   );
 
   render() {
@@ -55,7 +55,6 @@ class LoginPage extends Component {
         <Login
           defaultActiveKey={type}
           onSubmit={this.handleSubmit}
-          // changeCode={()=>{}}
           changeCode={this.changeStatusCode}
           ref={form => {
             this.loginForm = form;
@@ -69,13 +68,13 @@ class LoginPage extends Component {
           <Password
             name="password"
             placeholder={pPlaceholder}
-            onPressEnter={() => this.loginForm.validateFields(this.handleSubmit)}
           />
           <ImgCaptcha
             name="code"
             placeholder={cPlaceholder}
             captcha={vcodeUrl}
             statuscode={login.statusCode || ''}
+            onPressEnter={() => this.loginForm.validateFields(this.handleSubmit)}
           />
           <Submit loading={submitting}>登录</Submit>
         </Login>
