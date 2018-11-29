@@ -3,6 +3,7 @@ import os from 'os';
 import pageRoutes from './router.config';
 import webpackPlugin from './plugin.config';
 import defaultSettings from '../src/defaultSettings';
+
 const path = require('path');
 
 const { title } = defaultSettings;
@@ -35,8 +36,8 @@ const plugins = [
         : {}),
     },
   ],
+  ['umi-plugin-routermd', { createRouterMD: false }],
 ];
-
 
 export default {
   // add for transfer to umi
@@ -47,7 +48,7 @@ export default {
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
   },
-  history:'hash',
+  history: 'hash',
   // 路由配置
   routes: pageRoutes,
   // Theme for antd
@@ -55,7 +56,7 @@ export default {
   theme: {
     'primary-color': defaultSettings.primaryColor,
   },
-  alias:{
+  alias: {
     components: path.resolve('src/components/'),
     layouts: path.resolve('src/core/layouts/'),
     utils: path.resolve('src/utils/'),
@@ -98,7 +99,7 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
-  context:{
-    title
-  }
+  context: {
+    title,
+  },
 };

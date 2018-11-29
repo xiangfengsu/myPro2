@@ -1,5 +1,6 @@
-import { UserRouter, AppRouter} from './baseRouter.config';
+import { UserRouter, AppRouter } from './baseRouter.config';
 import CustomRouter from './customRouter.config';
+
 export default [
   // user
   ...UserRouter,
@@ -9,11 +10,6 @@ export default [
     component: '../core/layouts/BasicLayout',
     // Routes: ['src/pages/Authorized'],
     authority: [],
-    routes: [
-      { path: '/' },
-      ...CustomRouter,
-      ...AppRouter,
-
-    ],
+    routes: [{ path: '/', type: 'base' }, ...CustomRouter, ...AppRouter],
   },
 ];

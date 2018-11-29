@@ -6,6 +6,7 @@ const formTypeRoute =
     ? [
         {
           name: '表单类型',
+          type: 'base',
           icon: 'book',
           path: 'formItemType/formItemTypePage',
           menutype: 2,
@@ -17,6 +18,7 @@ const formTypeRoute =
 export const UserRouter = [
   {
     path: '/user',
+    type: 'base',
     component: '../core/layouts/UserLayout',
     routes: [
       { path: '/user', redirect: '/user/login' },
@@ -32,6 +34,7 @@ export const AppRouter = [
     icon: 'setting',
     path: '/permission',
     menutype: 1,
+    type: 'base',
     routes: [
       {
         name: '部门管理',
@@ -70,6 +73,7 @@ export const AppRouter = [
     icon: 'warning',
     path: '/exception',
     hideInMenu: true,
+    type: 'base',
     routes: [
       // exception
       {
@@ -95,11 +99,13 @@ export const AppRouter = [
   {
     path: '/account/settings',
     name: '个人中心',
+    type: 'base',
     hideInMenu: true,
     component: './Sys/User/Settings/route/Settings',
     menutype: 2,
   },
   {
     component: '404',
+    type: 'base',
   },
 ];

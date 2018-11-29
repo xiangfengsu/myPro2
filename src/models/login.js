@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
-import { getPageQuery } from '@/utils/utils';
 import { accountLogin, accountLoginOut } from '@/services/login';
+
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 export default {
   namespace: 'login',
@@ -41,7 +41,7 @@ export default {
         }
       }
     },
-    *logout(_, { call, put, select }) {
+    *logout(_, { call, put }) {
       yield call(accountLoginOut, '/sys/logout');
       yield put({
         type: 'changeLoginStatus',
