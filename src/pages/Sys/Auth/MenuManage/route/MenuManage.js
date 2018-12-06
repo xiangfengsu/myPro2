@@ -8,7 +8,7 @@ import TreeTable from 'components/TreeTable/Index';
 import { formaterObjectValue, formItemAddInitValue } from 'utils/utils';
 import PageHeaderWrapper from 'components/PageHeaderWrapper';
 
-import { PageConfig } from './pageConfig';
+import pageConfig from './pageConfig';
 import DetailFormInfo from './ModalDetailForm';
 import styles from './Index.less';
 
@@ -23,10 +23,15 @@ class Index extends PureComponent {
     updateFormItems: PropTypes.func,
   };
 
-  state = {
-    showModalType: '',
-    detailFormItems: [],
-  };
+  constructor(props) {
+    super(props);
+    this.pageConfig = pageConfig(props.form);
+    this.state = {
+      showModalType: '',
+      detailFormItems: [],
+      currentItem: {},
+    };
+  }
 
   getChildContext() {
     return {
@@ -42,7 +47,7 @@ class Index extends PureComponent {
   }
 
   updateFormItems = (id = 1, type = 'create', record = {}) => {
-    const detailForm = cloneDeep(PageConfig.detailFormItems);
+    const detailForm = cloneDeep(this.pageConfig.detailFormItems);
     const detailFormItems = [
       ...detailForm.selectFormItem,
       ...detailForm[id],
@@ -52,7 +57,7 @@ class Index extends PureComponent {
     if (type === 'update') {
       newDetailFormItems[0].colSpan = 0;
     }
-    this.setState({ detailFormItems: newDetailFormItems });
+    this.setState({ detailFormItems: newDetailFormItems, currentItem: record });
   };
 
   showModalVisibel = (type, record) => {
@@ -68,6 +73,7 @@ class Index extends PureComponent {
     this.changeModalVisibel(false);
     this.setState({
       detailFormItems: [],
+      currentItem: {},
     });
   };
 
@@ -144,7 +150,7 @@ class Index extends PureComponent {
 
   renderTable = () => {
     const { menumanage, loading } = this.props;
-    const { tableColumns } = PageConfig;
+    const { tableColumns } = this.pageConfig;
     const newTableColumns = [...tableColumns, ...this.extraTableColumnRender()];
     const {
       data: { list = [] },
@@ -158,7 +164,7 @@ class Index extends PureComponent {
   };
 
   render() {
-    const { detailFormItems } = this.state;
+    const { detailFormItems, currentItem } = this.state;
     const {
       menumanage: { modalVisible, confirmLoading },
     } = this.props;
@@ -193,6 +199,7 @@ class Index extends PureComponent {
             ref={ref => {
               this.modalForm = ref;
             }}
+            currentItem={currentItem}
             formItems={detailFormItems}
           />
         </Modal>

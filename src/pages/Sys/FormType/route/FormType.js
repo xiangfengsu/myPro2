@@ -42,8 +42,8 @@ class Index extends PureComponent {
   handleReset = e => {
     e.preventDefault();
     this.setState(preState => ({
-        currentFormItems: formItemRemoveInitValue(preState.currentFormItems),
-      }));
+      currentFormItems: formItemRemoveInitValue(preState.currentFormItems),
+    }));
     this.props.form.resetFields();
   };
 
@@ -59,6 +59,7 @@ class Index extends PureComponent {
   renderFormItem = () => {
     const { form } = this.props;
     const { currentFormItems } = this.state;
+    // console.log(currentFormItems);
     return currentFormItems.map(item => {
       const InputType = renderFormItem(item, form);
       return (

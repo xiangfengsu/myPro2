@@ -9,7 +9,7 @@ import { formaterObjectValue, formItemAddInitValue } from '@/utils/utils';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import DetailFormInfo from './ModalDetailForm';
-import { PageConfig } from './pageConfig';
+import pageConfig from './pageConfig';
 import styles from './Index.less';
 
 @connect(({ user, loading, usermanage, dictionary }) => ({
@@ -20,14 +20,18 @@ import styles from './Index.less';
 }))
 @Form.create()
 class Index extends PureComponent {
-  state = {
-    showModalType: '',
-    formValues: {},
-    queryValues: {},
-    currentItem: {},
-    isShowMenuTree: false,
-    detailFormItems: PageConfig.detailFormItems,
-  };
+  constructor(props) {
+    super(props);
+    this.pageConfig = pageConfig(props.form);
+    this.state = {
+      showModalType: '',
+      formValues: {},
+      queryValues: {},
+      currentItem: {},
+      isShowMenuTree: false,
+      detailFormItems: this.pageConfig.detailFormItems,
+    };
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -38,7 +42,7 @@ class Index extends PureComponent {
   }
 
   updateFormItems = (record = {}) => {
-    const detailFormItems = cloneDeep(PageConfig.detailFormItems);
+    const detailFormItems = cloneDeep(this.pageConfig.detailFormItems);
     const newDetailFormItems = formItemAddInitValue(detailFormItems, record);
     this.setState({ detailFormItems: newDetailFormItems });
   };
@@ -86,7 +90,7 @@ class Index extends PureComponent {
           <div>
             <a onClick={() => this.showModalVisibel('create', record, true)}>查看</a>
           </div>
-          ),
+        ),
         fixed: 'right',
         width: 90,
       },
@@ -207,7 +211,7 @@ class Index extends PureComponent {
 
   renderSearchForm = () => {
     const { form, dispatch } = this.props;
-    const { searchForms } = PageConfig;
+    const { searchForms } = this.pageConfig;
     const props = {
       form,
       formInfo: {
@@ -240,7 +244,7 @@ class Index extends PureComponent {
 
   renderTable = () => {
     const { usermanage, loading } = this.props;
-    const { tableColumns } = PageConfig;
+    const { tableColumns } = this.pageConfig;
     const newTableColumns = [...tableColumns, ...this.extraTableColumnRender()];
     const {
       data: { list, pagination },
@@ -296,6 +300,7 @@ class Index extends PureComponent {
             </div>
           </div>
         </Card>
+
         <Modal
           destroyOnClose
           confirmLoading={confirmLoading}

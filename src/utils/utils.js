@@ -3,11 +3,9 @@ import moment from 'moment';
 import React from 'react';
 import { parse } from 'qs';
 
-
 export function getPageQuery() {
   return parse(window.location.href.split('?')[1]);
 }
-
 
 /* eslint no-useless-escape:0 */
 const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
@@ -15,7 +13,6 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(
 export function isUrl(path) {
   return reg.test(path);
 }
-
 
 export function formaterObjectValue(obj) {
   const newObj = {};
@@ -59,10 +56,13 @@ export function formItemAddInitValue(formItems, currentItem) {
 }
 export function formItemRemoveInitValue(formItems) {
   return formItems.map(item => {
-    if (item.initialValue !== undefined) {
-      delete item.initialValue; // eslint-disable-line
-    }
-    return item;
+    // if (item.initialValue !== undefined) {
+    //   delete item.initialValue; // eslint-disable-line
+    // }
+    return {
+      ...item,
+      initialValue: undefined,
+    };
   });
 }
 export function updateTableColumns(columns = [], updateCol) {
@@ -161,7 +161,7 @@ export function formatterTableList(data, keyList = []) {
   };
 }
 export function dateFormatter(date, join = '~') {
-  if(!date){
+  if (!date) {
     return '';
   }
   if (Array.isArray(date)) {

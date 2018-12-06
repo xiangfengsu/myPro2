@@ -26,5 +26,12 @@ export const tablePageModel = {
         data: action.payload.data,
       };
     },
+    clear(state) {
+      return {
+        ...state,
+        modalVisible: false,
+        confirmLoading: false,
+      };
+    },
   },
 };

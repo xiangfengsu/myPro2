@@ -1,7 +1,16 @@
 import React from 'react';
 import { Tag } from 'antd';
 
-export const PageConfig = {
+const formItemLayout = {
+  labelCol: {
+    span: 6,
+  },
+  wrapperCol: {
+    span: 18,
+  },
+};
+
+export default () => ({
   name: '用户管理',
   path: 'usermanage',
   tableColumns: [
@@ -20,11 +29,12 @@ export const PageConfig = {
     {
       title: '角色',
       dataIndex: 'role',
-      render: (text, record) => record.sysRoleList.map(v => (
-        <Tag color="cyan" key={v.id}>
-          {v.rolename}
-        </Tag>
-          )),
+      render: (text, record) =>
+        record.sysRoleList.map(v => (
+          <Tag color="cyan" key={v.id}>
+            {v.rolename}
+          </Tag>
+        )),
     },
     {
       title: '昵称',
@@ -53,8 +63,7 @@ export const PageConfig = {
         if (text === 1) {
           return <Tag color="#52c41a">通过</Tag>;
         }
-          return <Tag color="#f5222d">拒绝</Tag>;
-
+        return <Tag color="#f5222d">拒绝</Tag>;
       },
       fixed: 'right',
       width: 60,
@@ -62,27 +71,40 @@ export const PageConfig = {
   ],
   searchForms: [
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: false,
       key: 'username',
       label: '用户名',
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'inputPhone',
-      disabled: false,
+      formType: 'CInputPhone',
       isRequired: false,
       key: 'mobile',
       label: '手机号',
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'select',
-      disabled: false,
+      formType: 'CSelect',
       isRequired: false,
       key: 'status',
       label: '状态',
-      placeholder: '状态',
-      dataType: 'static',
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
       selectOptions: [
         {
           key: 1,
@@ -97,107 +119,163 @@ export const PageConfig = {
   ],
   detailFormItems: [
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: false,
       key: 'id',
       label: 'id',
       colSpan: 0,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: true,
       key: 'nickname',
       label: '昵称',
       colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: true,
       key: 'username',
       label: '登录名',
       colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: true,
       key: 'password',
       label: '密码',
       colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'selectDynamic',
-      disabled: false,
+      formType: 'CSelectDynamic',
       isRequired: true,
-      multiple: true,
       key: 'roleids',
       label: '角色',
-      placeholder: '请选择角色',
+      colSpan: 24,
+      props: {
+        disabled: false,
+        mode: 'multiple',
+        getPopupContainer: () => document.querySelector('.ant-modal-wrap '),
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
       dictionaryKey: 'roleDictionary',
       fetchUrl: '/sys/role/dic',
-      hasFeedback: true,
-      colSpan: 24,
     },
+
     {
-      formType: 'selectDynamicTree',
-      disabled: false,
+      formType: 'CSelectDynamicTree',
       isRequired: true,
-      key: 'deptid', //  departmentid
+      key: 'deptid',
       label: '所属部门',
+      colSpan: 24,
       dictionaryKey: 'departmentStructure',
       fetchUrl: '/sys/dept/dic',
-      hasFeedback: true,
-      colSpan: 24,
+      props: {
+        disabled: false,
+        getPopupContainer: () => document.querySelector('.ant-modal-wrap '),
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
+
     {
-      formType: 'inputPhone',
-      disabled: false,
+      formType: 'CInputPhone',
       isRequired: true,
       key: 'mobile',
       label: '手机号',
       colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'inputMail',
+      formType: 'CInput',
       isRequired: true,
       key: 'email',
       label: '邮箱',
       colSpan: 24,
-    },
-    {
-      formType: 'select',
-      disabled: false,
-      isRequired: true,
-      initialValue: 1,
-      key: 'status',
-      label: '状态',
-      placeholder: '状态',
-      dataType: 'static',
-      selectOptions: [
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
+      rules: [
         {
-          key: '1',
-          value: '通过',
-        },
-        {
-          key: '2',
-          value: '拒绝',
+          pattern: /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/,
+          message: ' 邮箱格式不正确',
         },
       ],
-      colSpan: 24,
     },
 
     {
-      formType: 'textArea',
-      disabled: false,
+      formType: 'CSelect',
+      isRequired: true,
+      key: 'status',
+      label: '状态',
+      initialValue: 1,
+      colSpan: 24,
+      props: {
+        disabled: false,
+        getPopupContainer: () => document.querySelector('.ant-modal-wrap '),
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
+      selectOptions: [
+        {
+          key: 1,
+          value: '通过',
+        },
+        {
+          key: 2,
+          value: '拒绝',
+        },
+      ],
+    },
+    {
+      formType: 'CTextArea',
       isRequired: false,
       key: 'remark',
       label: '备注',
-      placeholder: '备注',
-      autosize: { minRows: 5, maxRows: 10 },
       colSpan: 24,
+      props: {
+        disabled: false,
+        autosize: { minRows: 5, maxRows: 10 },
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
   ],
-};
+});

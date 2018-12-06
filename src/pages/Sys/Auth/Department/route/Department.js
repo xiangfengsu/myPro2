@@ -7,10 +7,9 @@ import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { formaterObjectValue, formItemAddInitValue } from '@/utils/utils';
 import styles from './Index.less';
 
-import { PageConfig } from './pageConfig';
+import pageConfig from './pageConfig';
 
 import DetailFormInfo from './ModalDetailForm';
-// import Authorized from '../../../utils/Authorized';
 
 @connect(({ user, loading, department, dictionary }) => ({
   currentUser: user.currentUser,
@@ -20,11 +19,15 @@ import DetailFormInfo from './ModalDetailForm';
 }))
 @Form.create()
 class Index extends PureComponent {
-  state = {
-    showModalType: '',
-    currentItem: {},
-    detailFormItems: PageConfig.detailFormItems,
-  };
+  constructor(props) {
+    super(props);
+    this.pageConfig = pageConfig(props.form);
+    this.state = {
+      showModalType: '',
+      currentItem: {},
+      detailFormItems: this.pageConfig.detailFormItems,
+    };
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -34,7 +37,7 @@ class Index extends PureComponent {
   }
 
   updateFormItems = (record = {}) => {
-    const detailFormItems = cloneDeep(PageConfig.detailFormItems);
+    const detailFormItems = cloneDeep(this.pageConfig.detailFormItems);
     const newDetailFormItems = formItemAddInitValue(detailFormItems, record);
     this.setState({ detailFormItems: newDetailFormItems });
   };
@@ -127,7 +130,7 @@ class Index extends PureComponent {
 
   renderTable = () => {
     const { department, loading } = this.props;
-    const { tableColumns } = PageConfig;
+    const { tableColumns } = this.pageConfig;
     const newTableColumns = [...tableColumns, ...this.extraTableColumnRender()];
     const {
       data: { list },

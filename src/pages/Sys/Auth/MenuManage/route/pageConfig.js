@@ -1,8 +1,17 @@
 import React from 'react';
-import { Icon, Tag } from 'antd';
+import { Icon, Tag, Tooltip } from 'antd';
 import Ellipsis from '@/components/Ellipsis';
 
-export const PageConfig = {
+const formItemLayout = {
+  labelCol: {
+    span: 6,
+  },
+  wrapperCol: {
+    span: 18,
+  },
+};
+
+export default () => ({
   name: '菜单管理',
   path: 'permission/menumanage',
   tableColumns: [
@@ -20,9 +29,11 @@ export const PageConfig = {
       render: text => {
         if (text === 1) {
           return <Tag color="#f50">目录</Tag>;
-        } if (text === 2) {
+        }
+        if (text === 2) {
           return <Tag color="#2db7f5">菜单</Tag>;
-        } if (text === 4) {
+        }
+        if (text === 4) {
           return <Tag color="#108ee9">按钮</Tag>;
         }
       },
@@ -38,7 +49,7 @@ export const PageConfig = {
         <Ellipsis length={100} tooltip>
           {text}
         </Ellipsis>
-        ),
+      ),
     },
     {
       title: '排序',
@@ -62,228 +73,331 @@ export const PageConfig = {
   detailFormItems: {
     selectFormItem: [
       {
-        formType: 'select',
-        disabled: false,
+        formType: 'CSelect',
         isRequired: true,
+        initialValue: 1,
         key: 'menutype',
         label: '类型',
-        initialValue: 1,
+        colSpan: 24,
+        props: {},
+        formitemprops: {
+          ...formItemLayout,
+        },
         selectOptions: [
           {
-            key: '1',
+            key: 1,
             value: '目录',
           },
           {
-            key: '2',
+            key: 2,
             value: '菜单',
           },
           {
-            key: '4',
+            key: 4,
             value: '按钮',
           },
         ],
-        hasFeedback: true,
-        colSpan: 24,
       },
       {
-        formType: 'select',
-        disabled: false,
-        isRequired: false,
+        formType: 'CSelect',
+        isRequired: true,
+        initialValue: 1,
         key: 'status',
         label: '状态',
-        placeholder: '状态',
-        dataType: 'static',
-        initialValue: 1,
+        colSpan: 24,
+        props: {
+          disabled: false,
+          getPopupContainer: () => document.querySelector('.ant-modal-wrap'),
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
         selectOptions: [
           {
-            key: '1',
+            key: 1,
             value: '通过',
           },
           {
-            key: '2',
+            key: 2,
             value: '拒绝',
           },
         ],
-        colSpan: 24,
       },
     ],
     1: [
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: false,
         key: 'id',
         label: 'id',
         colSpan: 0,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'menuname',
         label: '目录名称',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'selectDynamicTree',
-        disabled: false,
+        formType: 'CSelectDynamicTree',
         isRequired: true,
         key: 'parentid',
         label: '父级目录',
-        placeholder: '请选择上级目录',
+        colSpan: 24,
         dictionaryKey: 'menuStructure',
         fetchUrl: '/sys/menu/dic',
-        multiple: false,
-        hasFeedback: true,
-        colSpan: 24,
+        props: {
+          disabled: false,
+          placeholder: '请选择上级目录',
+          getPopupContainer: () => document.querySelector('.ant-modal-wrap '),
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'router',
         label: '路由',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'icon',
         label: '图标',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'inputNumber',
-        disabled: false,
+        formType: 'CInputNumber',
         isRequired: false,
         key: 'menuorder',
         label: '排序',
-        placeholder: '排序',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
     ],
     2: [
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: false,
         key: 'id',
         label: 'id',
         colSpan: 0,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'menuname',
         label: '菜单名称',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'selectDynamicTree',
-        disabled: false,
+        formType: 'CSelectDynamicTree',
         isRequired: true,
         key: 'parentid',
-        label: '父级菜单',
-        placeholder: '请选择上级目录',
+        label: '父级目录',
+        colSpan: 24,
         dictionaryKey: 'menuStructure',
         fetchUrl: '/sys/menu/dic',
-        hasFeedback: true,
-        colSpan: 24,
+        props: {
+          disabled: false,
+          placeholder: '请选择上级目录',
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'router',
-        label: '菜单路由',
+        label: '路由',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'permission',
         label: '授权标识',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'inputNumber',
-        disabled: false,
+        formType: 'CInputNumber',
         isRequired: false,
         key: 'menuorder',
-        label: '菜单顺序',
-        placeholder: '菜单顺序',
+        label: '排序',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: false,
         key: 'icon',
         label: '图标',
-        tooltip: '菜单选择顶级目录时,请输入Icon',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+          label: (
+            <span>
+              图标 &nbsp;
+              <Tooltip key="tipIcon" title="菜单选择顶级目录时,请输入Icon">
+                <Icon type="question-circle-o" />
+              </Tooltip>
+            </span>
+          ),
+        },
       },
     ],
     4: [
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: false,
         key: 'id',
         label: 'id',
         colSpan: 0,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'menuname',
         label: '按钮名称',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'selectDynamicTree',
-        disabled: false,
+        formType: 'CSelectDynamicTree',
         isRequired: true,
         key: 'parentid',
         label: '父级菜单',
+        colSpan: 24,
         dictionaryKey: 'menuStructure',
         fetchUrl: '/sys/menu/dic',
-        hasFeedback: true,
-        colSpan: 24,
+        props: {
+          disabled: false,
+          placeholder: '请选择上级目录',
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'permission',
         label: '授权标识',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
       {
-        formType: 'input',
-        disabled: false,
+        formType: 'CInput',
         isRequired: true,
         key: 'router',
         label: '显示标识',
         colSpan: 24,
+        props: {
+          disabled: false,
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
     ],
 
     textArea: [
       {
-        formType: 'textArea',
-        disabled: false,
+        formType: 'CTextArea',
         isRequired: false,
         key: 'remark',
         label: '备注',
-        placeholder: '备注',
-        autosize: { minRows: 5, maxRows: 10 },
         colSpan: 24,
+        props: {
+          disabled: false,
+          autosize: { minRows: 5, maxRows: 10 },
+        },
+        formitemprops: {
+          ...formItemLayout,
+        },
       },
     ],
   },
-};
+});

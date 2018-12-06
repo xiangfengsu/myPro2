@@ -24,7 +24,7 @@
   "dependencies": {
     "@antv/data-set": "^0.10.0",
     "@babel/runtime": "^7.1.5",
-    "antd": "^3.10.7",
+    "antd": "^3.11.0",
     "classnames": "^2.2.6",
     "dva": "^2.4.0",
     "dva-model-extend": "^0.1.2",
@@ -45,8 +45,7 @@
     "react-dom": "^16.6.3",
     "react-fittext": "^1.0.0",
     "react-lightbox-component": "^1.2.1",
-    "react-router-dom": "^4.3.1",
-    "react-syntax-highlighter": "^10.1.1"
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "@types/react": "^16.4.16",
@@ -68,11 +67,14 @@
     "eslint-plugin-react": "^7.11.1",
     "gh-pages": "^2.0.1",
     "husky": "^1.1.2",
+    "jsx-to-string": "^1.4.0",
     "lint-staged": "^8.0.4",
     "merge-umi-mock-data": "^0.0.3",
     "mockjs": "^1.0.1-beta3",
     "prettier": "1.15.2",
     "pro-download": "^1.0.1",
+    "react-element-to-jsx-string": "^14.0.2",
+    "react-syntax-highlighter": "^10.1.1",
     "stylelint": "^9.4.0",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.0.0",

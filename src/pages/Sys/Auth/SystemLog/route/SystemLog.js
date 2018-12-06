@@ -7,7 +7,7 @@ import SearchForms from '@/components/GeneralSearchForm/Index';
 import TableList from '@/components/GeneralTableList/Index';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
-import { PageConfig } from './pageConfig';
+import pageConfig from './pageConfig';
 
 import styles from './Index.less';
 
@@ -18,10 +18,14 @@ import styles from './Index.less';
 }))
 @Form.create()
 class Index extends PureComponent {
-  state = {
-    formValues: {},
-    queryValues: {},
-  };
+  constructor(props) {
+    super(props);
+    this.pageConfig = pageConfig(props.form);
+    this.state = {
+      formValues: {},
+      queryValues: {},
+    };
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -77,7 +81,7 @@ class Index extends PureComponent {
 
   renderSearchForm = () => {
     const { form, dispatch } = this.props;
-    const { searchForms } = PageConfig;
+    const { searchForms } = this.pageConfig;
     const props = {
       form,
       formInfo: {
@@ -111,7 +115,7 @@ class Index extends PureComponent {
 
   renderTable = () => {
     const { systemlog, loading } = this.props;
-    const { tableColumns } = PageConfig;
+    const { tableColumns } = this.pageConfig;
     const {
       data: { list, pagination },
     } = systemlog;
@@ -154,4 +158,4 @@ class Index extends PureComponent {
     );
   }
 }
-export default Index
+export default Index;

@@ -1,7 +1,16 @@
 import React from 'react';
 import { Tag } from 'antd';
 
-export const PageConfig = {
+const formItemLayout = {
+  labelCol: {
+    span: 6,
+  },
+  wrapperCol: {
+    span: 18,
+  },
+};
+
+export default () => ({
   name: '部门管理',
   path: 'permission/department',
   apiList: {
@@ -34,71 +43,89 @@ export const PageConfig = {
         if (text === 1) {
           return <Tag color="#52c41a">正常</Tag>;
         }
-          return <Tag color="#f5222d">删除</Tag>;
-
+        return <Tag color="#f5222d">删除</Tag>;
       },
     },
   ],
   detailFormItems: [
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: true,
       key: 'name',
       label: '部门名称',
-      placeholder: '部门名称',
       colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'selectDynamicTree',
-      disabled: false,
+      formType: 'CSelectDynamicTree',
       isRequired: true,
       key: 'parentid',
       label: '上级部门',
+      colSpan: 24,
       dictionaryKey: 'departmentStructure',
       fetchUrl: '/sys/dept/dic',
-      hasFeedback: true,
-      colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'select',
-      disabled: false,
-      isRequired: false,
+      formType: 'CSelect',
+      isRequired: true,
+      initialValue: 1,
       key: 'status',
       label: '状态',
-      placeholder: '状态',
-      dataType: 'static',
-      initialValue: 1,
+      colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
       selectOptions: [
         {
-          key: '1',
+          key: 1,
           value: '正常',
         },
         {
-          key: '2',
+          key: 2,
           value: '删除',
         },
       ],
-      colSpan: 24,
     },
     {
-      formType: 'inputNumber',
-      disabled: false,
-      isRequired: false,
+      formType: 'CInputNumber',
+      isRequired: true,
       key: 'deptorder',
       label: '排序',
-      placeholder: '排序',
       colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'textArea',
-      disabled: false,
+      formType: 'CTextArea',
       isRequired: false,
       key: 'remark',
       label: '备注',
-      placeholder: '备注',
-      autosize: { minRows: 5, maxRows: 10 },
       colSpan: 24,
+      props: {
+        disabled: false,
+        autosize: { minRows: 5, maxRows: 10 },
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
   ],
-};
+});

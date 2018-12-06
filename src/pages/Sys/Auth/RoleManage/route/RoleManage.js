@@ -8,7 +8,7 @@ import MenuTree from '@/components/TreeSelectModal/Index';
 import { formaterObjectValue, formItemAddInitValue } from '@/utils/utils';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import { PageConfig } from './pageConfig';
+import pageConfig from './pageConfig';
 import DetailFormInfo from './ModalDetailForm';
 import styles from './Index.less';
 
@@ -22,13 +22,17 @@ import styles from './Index.less';
 }))
 @Form.create()
 class Index extends PureComponent {
-  state = {
-    showModalType: '',
-    queryValues: {},
-    currentItem: {},
-    isShowMenuTree: false,
-    detailFormItems: PageConfig.detailFormItems,
-  };
+  constructor(props) {
+    super(props);
+    this.pageConfig = pageConfig(props.form);
+    this.state = {
+      showModalType: '',
+      queryValues: {},
+      currentItem: {},
+      isShowMenuTree: false,
+      detailFormItems: this.pageConfig.detailFormItems,
+    };
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -39,7 +43,7 @@ class Index extends PureComponent {
   }
 
   updateFormItems = (record = {}) => {
-    const detailFormItems = cloneDeep(PageConfig.detailFormItems);
+    const detailFormItems = cloneDeep(this.pageConfig.detailFormItems);
     const newDetailFormItems = formItemAddInitValue(detailFormItems, record);
     this.setState({ detailFormItems: newDetailFormItems });
   };
@@ -86,9 +90,9 @@ class Index extends PureComponent {
         title: '菜单权限',
         render: (text, record) => (
           <Tag color="#1890ff" onClick={() => this.showModalVisibel('create', record, true)}>
-              查看
+            查看
           </Tag>
-          ),
+        ),
       },
       {
         title: '操作',
@@ -207,7 +211,7 @@ class Index extends PureComponent {
 
   renderSearchForm = () => {
     const { form, dispatch } = this.props;
-    const { searchForms } = PageConfig;
+    const { searchForms } = this.pageConfig;
     const props = {
       form,
       formInfo: {
@@ -240,7 +244,7 @@ class Index extends PureComponent {
 
   renderTable = () => {
     const { rolemanage, loading } = this.props;
-    const { tableColumns } = PageConfig;
+    const { tableColumns } = this.pageConfig;
     const newTableColumns = [...tableColumns, ...this.extraTableColumnRender()];
     const {
       data: { list, pagination },
@@ -318,4 +322,4 @@ class Index extends PureComponent {
     );
   }
 }
-export default Index
+export default Index;

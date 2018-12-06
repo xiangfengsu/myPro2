@@ -1,7 +1,16 @@
 import React from 'react';
 import { Tag } from 'antd';
 
-export const PageConfig = {
+const formItemLayout = {
+  labelCol: {
+    span: 6,
+  },
+  wrapperCol: {
+    span: 18,
+  },
+};
+
+export default () => ({
   name: '角色管理',
   path: 'permission/rolemanage',
   tableColumns: [
@@ -14,11 +23,11 @@ export const PageConfig = {
       dataIndex: 'menuids',
       colSpan: 0,
       render: text => ({
-          children: <a href="#">{text}</a>,
-          props: {
-            colSpan: 0,
-          },
-        }),
+        children: <a href="#">{text}</a>,
+        props: {
+          colSpan: 0,
+        },
+      }),
     },
     {
       title: '角色名称',
@@ -34,9 +43,8 @@ export const PageConfig = {
       render: text => {
         if (text === 1) {
           return <Tag color="#52c41a">通过</Tag>;
-        } 
-          return <Tag color="#f5222d">拒绝</Tag>;
-        
+        }
+        return <Tag color="#f5222d">拒绝</Tag>;
       },
     },
     {
@@ -46,20 +54,29 @@ export const PageConfig = {
   ],
   searchForms: [
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: false,
       key: 'rolename',
       label: '角色名称',
+      // colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'select',
-      disabled: false,
+      formType: 'CSelect',
       isRequired: false,
       key: 'status',
       label: '状态',
-      placeholder: '状态',
-      dataType: 'static',
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
       selectOptions: [
         {
           key: '1',
@@ -74,64 +91,86 @@ export const PageConfig = {
   ],
   detailFormItems: [
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: false,
       key: 'id',
       label: 'id',
       colSpan: 0,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'input',
-      disabled: false,
+      formType: 'CInput',
       isRequired: true,
       key: 'rolename',
       label: '角色名称',
       colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'selectDynamicTree', // selectDynamicTree
-      disabled: false,
+      formType: 'CSelectDynamicTree',
       isRequired: true,
       key: 'menuids',
       label: '菜单权限',
+      colSpan: 24,
       dictionaryKey: 'menuStructure',
       fetchUrl: '/sys/menu/dic',
-      multiple: true,
-      showCheckedStrategy: false,
-      hasFeedback: true,
-      colSpan: 24,
+      props: {
+        disabled: false,
+        multiple: true,
+        showCheckedStrategy: false,
+        treeCheckable: true,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
     {
-      formType: 'select',
-      initialValue: 1,
-      disabled: false,
+      formType: 'CSelect',
       isRequired: true,
+      initialValue: 1,
       key: 'status',
       label: '状态',
-      placeholder: '状态',
-      dataType: 'static',
+      colSpan: 24,
+      props: {
+        disabled: false,
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
       selectOptions: [
         {
-          key: '1',
+          key: 1,
           value: '通过',
         },
         {
-          key: '2',
+          key: 2,
           value: '拒绝',
         },
       ],
-      colSpan: 24,
     },
     {
-      formType: 'textArea',
-      disabled: false,
+      formType: 'CTextArea',
       isRequired: false,
       key: 'remark',
       label: '备注',
-      placeholder: '备注',
-      autosize: { minRows: 5, maxRows: 10 },
       colSpan: 24,
+      props: {
+        disabled: false,
+        autosize: { minRows: 5, maxRows: 10 },
+      },
+      formitemprops: {
+        ...formItemLayout,
+      },
     },
   ],
-};
+});

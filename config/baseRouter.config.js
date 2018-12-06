@@ -12,6 +12,14 @@ const formTypeRoute =
           menutype: 2,
           component: './Sys/FormType/route/FormType',
         },
+        {
+          name: '新表单类型',
+          type: 'base',
+          icon: 'book',
+          path: 'newformItemType/newformItemTypePage',
+          menutype: 2,
+          component: './Sys/NewFormType/route/FormType',
+        },
       ]
     : [];
 

@@ -1,20 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Row, Button, Col, Icon, Tooltip } from 'antd';
-import { renderFormItem } from '@/core/common/formItem';
+import { Form, Row, Button, Col, Icon } from 'antd';
+import renderFormItem from '@/core/common/renderFormItem';
 
 import styles from './Index.less';
 
-const FormItem = Form.Item;
-const formItemLayout = {
-  labelCol: {
-    span: 6,
-  },
-  wrapperCol: {
-    span: 18,
-  },
-};
 export default class SearchForms extends React.PureComponent {
   static propTypes = {
     formInfo: PropTypes.shape({
@@ -22,7 +13,6 @@ export default class SearchForms extends React.PureComponent {
       formItems: PropTypes.array,
     }),
     form: PropTypes.object,
-    dispatch: PropTypes.func,
     handleSearchSubmit: PropTypes.func,
     handleFormReset: PropTypes.func,
   };
@@ -33,7 +23,6 @@ export default class SearchForms extends React.PureComponent {
       formItems: [],
     },
     form: {},
-    dispatch: () => {},
     handleSearchSubmit: () => {},
     handleFormReset: () => {},
   };
@@ -96,19 +85,15 @@ export default class SearchForms extends React.PureComponent {
 
   toggleForm = () => {
     this.setState(({ expandForm }) => ({
-        expandForm: !expandForm,
-      }));
+      expandForm: !expandForm,
+    }));
   };
 
   renderFormItem = (formItems, count) => {
-    const { dispatch, form } = this.props;
+    const { form } = this.props;
     return formItems.map((item, i) => {
-      const InputType = renderFormItem(item, form, dispatch);
-      const Tip = (
-        <Tooltip title={item.tooltip}>
-          <Icon type="question-circle-o" />
-        </Tooltip>
-      );
+      const InputType = renderFormItem(item, form);
+
       return (
         <Col
           lg={item.colSpan === 0 ? 0 : item.colSpan || i < count ? 8 : 0}
@@ -116,13 +101,7 @@ export default class SearchForms extends React.PureComponent {
           sm={item.colSpan === 0 ? 0 : i < count ? 8 : 24}
           key={item.key}
         >
-          <FormItem
-            {...formItemLayout}
-            label={item.tooltip ? `${item.label}&nbsp;${Tip}` : item.label}
-            // hasFeedback
-          >
-            {InputType}
-          </FormItem>
+          {InputType}
         </Col>
       );
     });
@@ -136,11 +115,7 @@ export default class SearchForms extends React.PureComponent {
     const buttonText = expandForm ? '收起' : '展开';
     return (
       <div className={styles.searchForms}>
-        <Form
-          layout={layout}
-          onSubmit={this.handleSearch}
-          // hideRequiredMark={true}
-        >
+        <Form layout={layout} onSubmit={this.handleSearch}>
           <Row gutter={{ md: 8, lg: 24, xl: 24 }}>{this.getFields()}</Row>
           {expandForm ? (
             <div style={{ overflow: 'hidden' }}>
