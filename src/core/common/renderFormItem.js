@@ -33,6 +33,7 @@ export default (item, form) => {
     props = {},
     formitemprops = {},
     rules = [],
+    fieldDecoratorOptions = {},
   } = item;
 
   let InputType = null;
@@ -44,6 +45,7 @@ export default (item, form) => {
       label,
       ...formitemprops,
     },
+    fieldDecoratorOptions,
     ...props,
   };
   const defaultRule = [

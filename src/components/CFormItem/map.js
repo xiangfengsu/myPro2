@@ -22,6 +22,7 @@ export default {
     formitemprops: {},
     props: {},
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CInputNumber: {
     component: InputNumber,
@@ -30,12 +31,14 @@ export default {
       style: { width: '100%' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CInputMoney: {
     component: Input,
     formitemprops: {},
     props: {},
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CInputPhone: {
     component: Input,
@@ -44,12 +47,14 @@ export default {
       maxLength: 11,
     },
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CSelect: {
     component: Select,
     formitemprops: {},
     props: {},
     rules: [],
+    fieldDecoratorOptions: {},
     selectOptions: [
       {
         key: 'select1',
@@ -66,6 +71,7 @@ export default {
     formitemprops: {},
     props: {},
     rules: [],
+    fieldDecoratorOptions: {},
     selectOptions: [
       {
         label: 'selectGroup1',
@@ -102,6 +108,7 @@ export default {
     formitemprops: {},
     props: {},
     rules: [],
+    fieldDecoratorOptions: {},
     options: [],
   },
   CSelectDynamic: {
@@ -109,6 +116,7 @@ export default {
     formitemprops: {},
     props: {},
     rules: [],
+    fieldDecoratorOptions: {},
     dictionaryKey: 'CSelectDynamicDic',
     fetchUrl: '/api/selectLists2',
     cache: false,
@@ -118,6 +126,7 @@ export default {
     formitemprops: {},
     props: {},
     rules: [],
+    fieldDecoratorOptions: {},
     dictionaryKey: 'CSelectGroupDynamicDic',
     fetchUrl: '/api/selectGroupLists',
     cache: false,
@@ -129,6 +138,7 @@ export default {
       // style:{width:'96%'}
     },
     rules: [],
+    fieldDecoratorOptions: {},
     dictionaryKey: 'CCascaderDynamicDic',
     fetchUrl: '/api/cascaderDynamicList',
     cache: false,
@@ -141,6 +151,7 @@ export default {
       dropdownStyle: { maxHeight: 400, overflow: 'auto' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
     dictionaryKey: 'CSelectDynamicDic',
     fetchUrl: '/api/selectLists2',
     cache: false,
@@ -152,6 +163,7 @@ export default {
       style: { width: '100%' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CRangePicker: {
     component: RangePicker,
@@ -160,6 +172,7 @@ export default {
       style: { width: '100%' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CMonthPicker: {
     component: MonthPicker,
@@ -168,6 +181,7 @@ export default {
       style: { width: '100%' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CTimePicker: {
     component: TimePicker,
@@ -176,6 +190,7 @@ export default {
       style: { width: '100%' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CCheckboxGroup: {
     component: Checkbox,
@@ -184,6 +199,7 @@ export default {
       style: { width: '100%', lineHeight: 'unset' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
     itemColSpan: 6,
     selectOptions: [],
   },
@@ -194,6 +210,7 @@ export default {
       style: { width: '100%', lineHeight: 'unset' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
     itemColSpan: 6,
     selectOptions: [],
   },
@@ -204,6 +221,7 @@ export default {
       style: { width: '100%' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
   },
   CUpload: {
     component: UploadImg,
@@ -212,6 +230,7 @@ export default {
       style: { width: '100%' },
     },
     rules: [],
+    fieldDecoratorOptions: {},
     action: '/sys/file/upload',
     multiple: true,
     acceptType: '*', // .jpg,.png,.pdf,.mp4,.gif,.word
