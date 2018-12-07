@@ -369,6 +369,7 @@ export default form => [
     formitemprops: {
       hasFeedback: false,
     },
+
     action: '/sys/file/upload',
     listType: 'picture-card',
     maxFileCounts: 3,

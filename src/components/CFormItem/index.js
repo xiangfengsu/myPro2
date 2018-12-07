@@ -9,7 +9,7 @@ class WrapFormItem extends Component {
 
   componentDidMount() {}
 
-  getFormItemOptions = ({ onChange, initialValue, rules, fieldDecoratorOptions = {} }) => {
+  getFormItemOptions = ({ onChange, initialValue, rules, fieldDecoratorOptions = {},form }) => {
     const options = {
       rules: rules || [],
       ...fieldDecoratorOptions,
@@ -17,7 +17,9 @@ class WrapFormItem extends Component {
     options.initialValue = initialValue;
 
     if (onChange) {
-      options.onChange = onChange;
+      options.onChange = value => {
+        onChange(value, form);
+      };
     }
 
     return options;
