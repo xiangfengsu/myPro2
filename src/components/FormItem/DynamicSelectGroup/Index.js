@@ -22,11 +22,10 @@ class DynamicSelect extends Component {
         return {
           selectValue: multiple ? (arrValue === '' ? undefined : arrValue) : value,
         };
-      } 
-        return {
-          selectValue: value,
-        };
-      
+      }
+      return {
+        selectValue: value,
+      };
     }
     return null;
   }
@@ -90,9 +89,9 @@ class DynamicSelect extends Component {
                 <Option value={v.key} key={v.key}>
                   {v.value}
                 </Option>
-                  ))}
+              ))}
             </Select.OptGroup>
-            ))}
+          ))}
       </Select>
     );
   }

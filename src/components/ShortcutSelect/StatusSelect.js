@@ -11,5 +11,5 @@ const StatusSelect = ({ text, onSelect, okText = '通过', errorText = '拒绝' 
       <Badge status="error" text={errorText} />
     </Option>
   </Select>
-  );
+);
 export default StatusSelect;

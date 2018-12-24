@@ -36,8 +36,8 @@ class DetailFormInfo extends PureComponent {
   handleConfirmBlur = e => {
     const { value } = e.target;
     this.setState(({ confirmDirty }) => ({
-        confirmDirty: confirmDirty || !!value,
-      }));
+      confirmDirty: confirmDirty || !!value,
+    }));
   };
 
   render() {
@@ -94,4 +94,4 @@ class DetailFormInfo extends PureComponent {
     );
   }
 }
-export default DetailFormInfo
+export default DetailFormInfo;

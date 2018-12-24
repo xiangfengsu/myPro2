@@ -100,8 +100,8 @@ export function showStautsMessageHandle(router, type, code) {
       message.error(errorInfo);
     }
   } else if (type !== undefined) {
-      message.error(`操作失败， 错误代码:${type}`);
-    } else {
-      message.error('操作失败');
-    }
+    message.error(`操作失败， 错误代码:${type}`);
+  } else {
+    message.error('操作失败');
+  }
 }

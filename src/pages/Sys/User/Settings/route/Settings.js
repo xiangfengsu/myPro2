@@ -63,7 +63,7 @@ class BaseSetting extends PureComponent {
                 <Tag color="cyan" key={item.id}>
                   {item.rolename}
                 </Tag>
-                ))}
+              ))}
             </Description>
             <Description term="密码">
               <a onClick={() => this.showModalVisibel()}>修改密码</a>

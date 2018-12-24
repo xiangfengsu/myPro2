@@ -5,3 +5,5 @@
 package.json
 .umi
 .umi-production
+.DS_Store
+src/assets/**

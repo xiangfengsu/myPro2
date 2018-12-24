@@ -10,7 +10,7 @@ describe('Login', () => {
 
   beforeAll(async () => {
     jest.setTimeout(1000000);
-    browser = await puppeteer.launch({ args: ['--no-sandbox']});
+    browser = await puppeteer.launch({ args: ['--no-sandbox'] });
   });
 
   beforeEach(async () => {

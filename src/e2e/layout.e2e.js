@@ -13,7 +13,7 @@ const formatter = (menu = []) =>
       }
       return preItem;
     }, [])
-    .filter(item => item.menutype === 2 && !(/\/\buser\b/ig.test(item.path)));
+    .filter(item => item.menutype === 2 && !/\/\buser\b/gi.test(item.path));
 
 describe('Homepage', () => {
   let browser;
@@ -38,7 +38,6 @@ describe('Homepage', () => {
       it(`test pages ${path}`, testPage(path));
     });
   });
-
 
   afterAll(() => browser.close());
 });

@@ -102,7 +102,8 @@ class DynamicSelect extends Component {
     return obj;
   };
 
-  renderTreeNodes = data => data.map(item => {
+  renderTreeNodes = data =>
+    data.map(item => {
       let iconType = null;
       const { menutype } = item;
       const { disabled, selectable } = this.renderNodeDisabledSelectable(menutype);

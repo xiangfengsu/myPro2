@@ -120,9 +120,9 @@ export default modelExtend(tablePageModel, {
           list:
             dataObj.list &&
             dataObj.list.map(item => ({
-                ...item,
-                roleids: item.sysRoleList && item.sysRoleList.map(rl => rl.id),
-              })),
+              ...item,
+              roleids: item.sysRoleList && item.sysRoleList.map(rl => rl.id),
+            })),
         }),
       };
     },

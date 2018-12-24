@@ -238,8 +238,6 @@ class BasicLayout extends React.PureComponent {
     });
   };
 
-
-
   getMenuAuthorized = path => {
     const {
       route: { routes },

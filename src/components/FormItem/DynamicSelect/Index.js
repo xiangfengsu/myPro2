@@ -112,9 +112,9 @@ class DynamicSelect extends Component {
             <Option value={v.key} key={v.key}>
               {v.value}
             </Option>
-            ))}
+          ))}
       </Select>
     );
   }
 }
-export default DynamicSelect
+export default DynamicSelect;

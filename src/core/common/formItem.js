@@ -30,8 +30,7 @@ const validateNumber = (value, prevValue) => {
   if (reg.test(value) || value === '' || value === '-') {
     return value;
   }
-    return prevValue;
-
+  return prevValue;
 };
 const validatePlusNumber = (value, prevValue) => {
   if (!value) {
@@ -41,8 +40,7 @@ const validatePlusNumber = (value, prevValue) => {
   if (!Number.isNaN(value) && reg.test(value)) {
     return value;
   }
-    return prevValue;
-
+  return prevValue;
 };
 const noop = () => {};
 export const renderFormItem = (item, form, dispatch) => {
@@ -237,7 +235,7 @@ export const renderFormItem = (item, form, dispatch) => {
       break;
     case 'select':
       InputType = getFieldDecorator(item.key, {
-        initialValue: item.initialValue === undefined ? undefined : `${item.initialValue  }`,
+        initialValue: item.initialValue === undefined ? undefined : `${item.initialValue}`,
         rules: [
           {
             required: item.isRequired,
@@ -259,13 +257,13 @@ export const renderFormItem = (item, form, dispatch) => {
             <Select.Option key={`${option.key}`} value={option.key}>
               {option.value}
             </Select.Option>
-            ))}
+          ))}
         </Select>
       );
       break;
     case 'selectDynamic':
       InputType = getFieldDecorator(item.key, {
-        initialValue: item.initialValue === undefined ? undefined : `${item.initialValue  }`,
+        initialValue: item.initialValue === undefined ? undefined : `${item.initialValue}`,
         rules: [
           {
             required: item.isRequired,
@@ -313,9 +311,9 @@ export const renderFormItem = (item, form, dispatch) => {
                 <Select.Option value={v.key} key={v.key}>
                   {v.value}
                 </Select.Option>
-                  ))}
+              ))}
             </Select.OptGroup>
-            ))}
+          ))}
         </Select>
       );
       break;
@@ -529,7 +527,7 @@ export const renderFormItem = (item, form, dispatch) => {
                 <Col lg={item.itemColSpan || 6} key={checkitem.value} xs={12}>
                   <Checkbox value={checkitem.value}>{checkitem.label}</Checkbox>
                 </Col>
-                ))}
+              ))}
           </Row>
         </CheckboxGroup>
       );
@@ -551,7 +549,7 @@ export const renderFormItem = (item, form, dispatch) => {
                 <Col lg={item.itemColSpan || 6} key={checkitem.value} xs={12}>
                   <Radio value={checkitem.value}>{checkitem.label}</Radio>
                 </Col>
-                ))}
+              ))}
           </Row>
         </RadioGroup>
       );

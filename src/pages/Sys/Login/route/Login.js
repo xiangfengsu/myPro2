@@ -6,7 +6,7 @@ import defaultSettings from '@/defaultSettings';
 import styles from './Login.less';
 
 const { vcodeUrl, env } = defaultSettings;
-const {  UserName, Password, ImgCaptcha, Submit } = Login;
+const { UserName, Password, ImgCaptcha, Submit } = Login;
 
 @connect(({ login, loading }) => ({
   login,
@@ -65,10 +65,7 @@ class LoginPage extends Component {
             !login.submitting &&
             this.renderMessage(login.errorMessage)}
           <UserName name="username" placeholder={uPlaceholder} />
-          <Password
-            name="password"
-            placeholder={pPlaceholder}
-          />
+          <Password name="password" placeholder={pPlaceholder} />
           <ImgCaptcha
             name="code"
             placeholder={cPlaceholder}

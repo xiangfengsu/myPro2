@@ -4,7 +4,8 @@ import { Tree, Card, Tag } from 'antd';
 const { TreeNode } = Tree;
 
 export default class Index extends PureComponent {
-  renderTreeNodes = data => data.map(item => {
+  renderTreeNodes = data =>
+    data.map(item => {
       let iconType = null;
       if (item.menuType === 1) {
         iconType = (

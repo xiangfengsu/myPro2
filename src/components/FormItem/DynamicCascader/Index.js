@@ -21,11 +21,10 @@ class DynamicCascader extends Component {
         return {
           selectValue: multiple ? (arrValue === '' ? undefined : arrValue) : value,
         };
-      } 
-        return {
-          selectValue: value,
-        };
-      
+      }
+      return {
+        selectValue: value,
+      };
     }
     return null;
   }
@@ -91,4 +90,4 @@ class DynamicCascader extends Component {
     );
   }
 }
-export default DynamicCascader
+export default DynamicCascader;

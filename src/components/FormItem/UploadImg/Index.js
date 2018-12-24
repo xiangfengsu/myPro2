@@ -141,12 +141,10 @@ class UploadImg extends Component {
     }
     const carouserImages = this.getCarouserImages();
     const carouserFirstIndex = carouserImages.findIndex(cfile => cfile.uid === file.uid);
-    if(this.lightBoxRef.current){
+    if (this.lightBoxRef.current) {
       this.lightBoxRef.current.toggleLightbox(carouserFirstIndex === -1 ? 0 : carouserFirstIndex);
     }
-
   };
-
 
   renderUploadBtn = () => {
     // 1:text  2:picture 3:picture-card

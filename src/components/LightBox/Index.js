@@ -41,7 +41,7 @@ export default class Index extends PureComponent {
         <Row gutter={10}>
           {images.map((image, i) => (
             <Col
-                key={`img_${i}`} /* eslint-disable-line */
+              key={`img_${i}`} /* eslint-disable-line */
               xs={12}
               sm={8}
               md={6}
@@ -51,8 +51,8 @@ export default class Index extends PureComponent {
               <div
                 className={styles.imgWrap}
                 onClick={() => {
-                    this.showModal(i);
-                  }}
+                  this.showModal(i);
+                }}
               >
                 <div className={styles.imgBox}>
                   <img src={image.src} alt="" />
@@ -60,16 +60,16 @@ export default class Index extends PureComponent {
                     <Icon
                       type="eye-o"
                       style={{
-                          color: 'rgba(255, 255, 255, 0.85)',
-                          fontSize: 16,
-                        }}
+                        color: 'rgba(255, 255, 255, 0.85)',
+                        fontSize: 16,
+                      }}
                     />
                   </span>
                 </div>
                 <div style={{ marginTop: 8 }}>{image.name}</div>
               </div>
             </Col>
-            ))}
+          ))}
         </Row>
         {images.length > 0 ? (
           <CustomCarouser

@@ -81,4 +81,4 @@ class DynamicInput extends Component {
     );
   }
 }
-export default DynamicInput
+export default DynamicInput;
