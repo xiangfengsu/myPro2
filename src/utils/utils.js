@@ -2,6 +2,9 @@
 import moment from 'moment';
 import React from 'react';
 import { parse } from 'qs';
+import isEqual from 'lodash/isEqual';
+import memoizeOne from 'memoize-one';
+import customRouter from '../../config/customRouter.config';
 
 export function getPageQuery() {
   return parse(window.location.href.split('?')[1]);
@@ -169,4 +172,42 @@ export function dateFormatter(date, join = '~') {
     return `${firstDate.format('YYYY-MM-DD')}${join}${lastDate.format('YYYY-MM-DD')}`;
   }
   return date.format('YYYY-MM-DD');
+}
+
+export function dateFormatterMoment(date, format = 'YYYY-MM-DD') {
+  if (date === '') return '';
+  return moment(date, format);
+}
+
+function getCustomRouterNameMap() {
+  const routerMap = {};
+  const mergeMenuAndRouter = data => {
+    data.forEach(menuItem => {
+      if (menuItem.routes) {
+        mergeMenuAndRouter(menuItem.routes);
+      }
+
+      if (menuItem.menutype === 2) {
+        routerMap[menuItem.path] = menuItem;
+      }
+    });
+  };
+  mergeMenuAndRouter(customRouter);
+  return routerMap;
+}
+const memoizeOneRouterNameMap = memoizeOne(getCustomRouterNameMap, isEqual);
+export function analyticsCommit(traceInfo = []) {
+  const routerMap = memoizeOneRouterNameMap();
+  const location = window.g_app._history.location || {};
+  const { pathname } = location;
+  const len = traceInfo.length;
+
+  if (pathname in routerMap && typeof _hmt === 'object') {
+    const { name } = routerMap[pathname];
+    if (len === 0) {
+      _hmt.push(['_trackEvent', name, 'click', '菜单']);
+    } else {
+      _hmt.push(['_trackEvent', name, ...traceInfo]);
+    }
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "myPro2",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "An out-of-box UI solution for enterprise applications",
   "private": true,
   "scripts": {
@@ -24,7 +24,7 @@
   "dependencies": {
     "@antv/data-set": "^0.10.0",
     "@babel/runtime": "^7.1.5",
-    "antd": "^3.11.0",
+    "antd": "^3.11.4",
     "classnames": "^2.2.6",
     "dva": "^2.4.0",
     "dva-model-extend": "^0.1.2",
@@ -83,7 +83,8 @@
     "tslint-react": "^3.6.0",
     "umi": "^2.2.1",
     "umi-plugin-ga": "^1.1.3",
-    "umi-plugin-react": "^1.2.0"
+    "umi-plugin-react": "^1.2.0",
+    "umi-plugin-routermd": "^1.1.1"
   },
   "optionalDependencies": {
     "puppeteer": "^1.10.0"

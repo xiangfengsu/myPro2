@@ -129,6 +129,9 @@ export default () => ({
         multiple: true,
         showCheckedStrategy: false,
         treeCheckable: true,
+        maxTagCount: 0,
+        maxTagPlaceholder: '已选菜单',
+        treeDefaultExpandAll: true,
       },
       formitemprops: {
         ...formItemLayout,

@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Divider, Form, Row, Col, Card, Button, Popover, message } from 'antd';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { atelierLakesideDark } from 'react-syntax-highlighter/styles/hljs';
+import { atelierLakesideDark } from 'react-syntax-highlighter/dist/styles/hljs';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import reactElementToJSXString from 'react-element-to-jsx-string';

@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Form, Row, Col, Card, Button, Popover, Modal, message } from 'antd';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/styles/prism';
+import { atomDark } from 'react-syntax-highlighter/dist/styles/prism';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { renderFormItem } from '@/core/common/formItem';
