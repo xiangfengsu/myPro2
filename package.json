@@ -24,7 +24,7 @@
   "dependencies": {
     "@antv/data-set": "^0.10.0",
     "@babel/runtime": "^7.1.5",
-    "antd": "^3.11.4",
+    "antd": "^3.12.3",
     "classnames": "^2.2.6",
     "dva": "^2.4.0",
     "dva-model-extend": "^0.1.2",

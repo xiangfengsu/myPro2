@@ -1,9 +1,45 @@
 import React, { PureComponent } from 'react';
 import { Tree, Card, Tag } from 'antd';
+import { connect } from 'dva';
 
 const { TreeNode } = Tree;
+@connect(state => ({
+  dictionary: state.dictionary,
+}))
+class Index extends PureComponent {
+  static getDerivedStateFromProps(nextProps) {
+    if ('value' in nextProps) {
+      const { value } = nextProps;
+      return {
+        selectValue: Array.isArray(value) ? value : value.checked,
+      };
+    }
+    return null;
+  }
 
-export default class Index extends PureComponent {
+  constructor(props) {
+    super(props);
+    const { value } = this.props;
+    this.state = {
+      selectValue: value,
+    };
+  }
+
+  handleChange = selectValue => {
+    if (!('value' in this.props)) {
+      this.setState({ selectValue });
+    }
+    this.triggerChange(selectValue);
+  };
+
+  triggerChange = ({ checked }) => {
+    const { onChange } = this.props;
+
+    if (onChange) {
+      onChange(checked);
+    }
+  };
+
   renderTreeNodes = data =>
     data.map(item => {
       let iconType = null;
@@ -49,23 +85,25 @@ export default class Index extends PureComponent {
     });
 
   render() {
+    const { selectValue } = this.state;
+    const checkedValue = Array.isArray(selectValue) ? selectValue.map(v => `${v}`) : selectValue;
     const {
       dictionary: { menuStructure = [] },
-      currentItem: { menuids = '' },
+      ...restProps
     } = this.props;
-    const parentdepartmentids = Array.isArray(menuids)
-      ? menuids.join(',').split(',')
-      : menuids.split(',');
     const len = menuStructure.length;
     return (
-      <Card bordered={false} loading={len === 0} style={{ pointerEvents: 'none' }}>
+      <Card bordered={false} loading={len === 0}>
         {len > 0 ? (
           <div className="menuTreeBox">
             <Tree
               showLine
               checkable
-              defaultExpandedKeys={parentdepartmentids}
-              defaultCheckedKeys={parentdepartmentids}
+              checkStrictly
+              defaultExpandedKeys={checkedValue}
+              defaultCheckedKeys={checkedValue}
+              onCheck={this.handleChange}
+              {...restProps}
             >
               {this.renderTreeNodes(menuStructure)}
             </Tree>
@@ -77,3 +115,4 @@ export default class Index extends PureComponent {
     );
   }
 }
+export default Index;

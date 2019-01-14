@@ -4,7 +4,7 @@ import { Form, Card, Modal, Button, Popconfirm, Tag } from 'antd';
 import cloneDeep from 'lodash/cloneDeep';
 import SearchForms from '@/components/GeneralSearchForm/Index';
 import TableList from '@/components/GeneralTableList/Index';
-import MenuTree from '@/components/TreeSelectModal/Index';
+import MenuTree from './MenuTree';
 import { formaterObjectValue, formItemAddInitValue } from '@/utils/utils';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -90,7 +90,7 @@ class Index extends PureComponent {
         title: '菜单权限',
         render: (text, record) => (
           <Tag color="#1890ff" onClick={() => this.showModalVisibel('create', record, true)}>
-            查看
+            修改权限
           </Tag>
         ),
       },
@@ -154,7 +154,25 @@ class Index extends PureComponent {
         }
       });
     } else {
-      this.hideModalVisibel();
+      this.menuForm.validateFieldsAndScroll((err, fieldsValue) => {
+        if (err) return;
+        const {
+          currentItem: { id, remark, rolename, status },
+        } = this.state;
+        const { menuids = [] } = fieldsValue;
+        const fields = {
+          menuids: menuids.map(v => v - 0),
+          id,
+          remark,
+          rolename,
+          status,
+        };
+        this.props.dispatch({
+          type: 'rolemanage/update',
+          payload: this.queryParamsFormater(fields, 2),
+        });
+      });
+      // this.hideModalVisibel();
     }
   };
 
@@ -315,7 +333,13 @@ class Index extends PureComponent {
               dictionary={dictionary}
             />
           ) : (
-            <MenuTree currentItem={currentItem} dictionary={dictionary} />
+            <MenuTree
+              ref={ref => {
+                this.menuForm = ref;
+              }}
+              disabled={false}
+              currentItem={currentItem}
+            />
           )}
         </Modal>
       </PageHeaderWrapper>

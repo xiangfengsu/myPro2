@@ -13,6 +13,7 @@ import DynamicSelectGroup from './DynamicSelectGroup/Index';
 import DynamicCascader from './DynamicCascader/Index';
 import UploadImg from './UploadImg/Index';
 import DynamicSelectTree from './DynamicSelectTree/Index';
+import DynamicTree from './DynamicTree/Index';
 
 const { MonthPicker, RangePicker } = DatePicker;
 
@@ -153,6 +154,16 @@ export default {
     rules: [],
     fieldDecoratorOptions: {},
     dictionaryKey: 'CSelectDynamicDic',
+    fetchUrl: '/api/selectLists2',
+    cache: false,
+  },
+  CDynamicTree: {
+    component: DynamicTree,
+    formitemprops: {},
+    props: {},
+    rules: [],
+    fieldDecoratorOptions: {},
+    dictionaryKey: 'CDynamicTreeDic',
     fetchUrl: '/api/selectLists2',
     cache: false,
   },

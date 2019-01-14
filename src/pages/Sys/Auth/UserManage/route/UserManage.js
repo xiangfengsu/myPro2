@@ -4,7 +4,7 @@ import { Form, Card, Modal, Button, Popconfirm } from 'antd';
 import cloneDeep from 'lodash/cloneDeep';
 import TableList from '@/components/GeneralTableList/Index';
 import SearchForms from '@/components/GeneralSearchForm/Index';
-import MenuTree from '@/components/TreeSelectModal/Index';
+import MenuTree from './MenuTree';
 import { formaterObjectValue, formItemAddInitValue } from '@/utils/utils';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -319,7 +319,13 @@ class Index extends PureComponent {
               dictionary={dictionary}
             />
           ) : (
-            <MenuTree currentItem={currentItem} dictionary={dictionary} />
+            <MenuTree
+              ref={ref => {
+                this.menuForm = ref;
+              }}
+              disabled
+              currentItem={currentItem}
+            />
           )}
         </Modal>
       </PageHeaderWrapper>
