@@ -12,6 +12,7 @@ const {
   CSelectDynamic,
   CSelectGroupDynamic,
   CCascaderDynamic,
+  CCascaderDynamicOption,
   CSelectDynamicTree,
   CDatePicker,
   CRangePicker,
@@ -163,6 +164,18 @@ export default (item, form) => {
           rules={[...defaultRule, ...rules]}
           dictionaryKey={item.dictionaryKey}
           fetchUrl={item.fetchUrl}
+        />
+      );
+      break;
+    case 'CCascaderDynamicOption':
+      InputType = (
+        <CCascaderDynamicOption
+          placeholder={`请选择${label}`}
+          {...defaultProps}
+          rules={[...defaultRule, ...rules]}
+          dictionaryKey={item.dictionaryKey}
+          fetchUrl={item.fetchUrl}
+          loadLeafUrls={item.loadLeafUrls || []}
         />
       );
       break;

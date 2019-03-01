@@ -11,6 +11,7 @@ import {
 import DynamicSelect from './DynamicSelect/Index';
 import DynamicSelectGroup from './DynamicSelectGroup/Index';
 import DynamicCascader from './DynamicCascader/Index';
+import DynamicCascaderOption from './DynamicCascaderOption/Index';
 import UploadImg from './UploadImg/Index';
 import DynamicSelectTree from './DynamicSelectTree/Index';
 import DynamicTree from './DynamicTree/Index';
@@ -142,6 +143,24 @@ export default {
     fieldDecoratorOptions: {},
     dictionaryKey: 'CCascaderDynamicDic',
     fetchUrl: '/api/cascaderDynamicList',
+    cache: false,
+  },
+  CCascaderDynamicOption: {
+    component: DynamicCascaderOption,
+    formitemprops: {},
+    props: {},
+    rules: [],
+    fieldDecoratorOptions: {},
+    dictionaryKey: 'CCascaderDynamicOptionDic',
+    fetchUrl: '/api/cascaderDynamicList',
+    loadLeafUrls: [
+      {
+        cache: false,
+        queryKey: 'sid',
+        leafZindex: 2,
+        url: '/api/index/getModel',
+      },
+    ],
     cache: false,
   },
   CSelectDynamicTree: {

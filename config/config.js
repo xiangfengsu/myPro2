@@ -48,7 +48,7 @@ export default {
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
   },
-  history: 'hash',
+  // history: 'hash',
   // 路由配置
   routes: pageRoutes,
   // Theme for antd

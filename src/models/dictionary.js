@@ -1,18 +1,18 @@
 import { queryDic } from '@/services/api';
+import omit from 'omit.js';
 
 export default {
   namespace: 'dictionary',
   state: {},
   effects: {
     *query({ payload }, { call, put }) {
-      const { dictionaryKey, cache } = payload;
+      const { dictionaryKey, cache, cb } = payload;
       let list = [];
       if (cache && localStorage[dictionaryKey]) {
         list = JSON.parse(localStorage[dictionaryKey]);
       } else {
-        delete payload.cache; // eslint-disable-line
-        delete payload.dictionaryKey; // eslint-disable-line
-        const response = yield call(queryDic, payload);
+        const queryParams = omit(payload, ['cache', 'dictionaryKey', 'cb']);
+        const response = yield call(queryDic, queryParams);
         const { body = [], code } = response || {};
         if (code === 200) {
           list = body;
@@ -28,6 +28,7 @@ export default {
           [dictionaryKey]: list,
         },
       });
+      if (cb) cb(list);
     },
   },
 

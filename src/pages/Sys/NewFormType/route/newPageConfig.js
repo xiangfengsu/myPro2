@@ -225,6 +225,35 @@ export default form => [
     fetchUrl: '/api/cascaderDynamicList',
   },
   {
+    formType: 'CCascaderDynamicOption',
+    isRequired: false,
+    key: 'CCascaderDynamicOption',
+    label: 'CCascaderDynamicOption',
+    colSpan: 8,
+    props: {
+      cache: false,
+    },
+    formitemprops: {
+      hasFeedback: false,
+    },
+    dictionaryKey: 'CascaderDynamicOptionDic',
+    fetchUrl: '/api/topOption',
+    loadLeafUrls: [
+      {
+        cache: false,
+        queryKey: 'id',
+        leafZindex: 2,
+        url: '/api/twoOption',
+      },
+      {
+        cache: false,
+        queryKey: 'id',
+        leafZindex: 3,
+        url: '/api/threeOption',
+      },
+    ],
+  },
+  {
     formType: 'CSelectDynamicTree',
     isRequired: false,
     key: 'cselectDynamicTree',
