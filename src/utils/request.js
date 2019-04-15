@@ -2,6 +2,7 @@ import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import router from 'umi/router';
 
+let currentUrl = '';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -25,16 +26,27 @@ const checkStatus = response => {
     return response;
   }
   const errortext = codeMessage[response.status] || response.statusText;
-  if (response.status !== 401) {
-    notification.error({
-      message: `请求错误 ${response.status}: ${response.url}`,
-      description: errortext,
-    });
-  }
+  notification.error({
+    message: `请求错误 ${response.status}: ${response.url}`,
+    description: errortext,
+  });
   const error = new Error(errortext);
   error.name = response.status;
   error.response = response;
   throw error;
+};
+
+const interceptor = (responseJson = {}) => {
+  const { body, code = 200, message } = responseJson;
+  if (code !== 200 && currentUrl !== '/sys/doLogin') {
+    const bodyInfo = typeof body === 'object' ? JSON.stringify(body, null, 2) : '';
+    // console.log(bodyInfo);
+    notification.error({
+      message: `错误提示`,
+      description: `${bodyInfo} \n ${message}`,
+    });
+  }
+  return responseJson;
 };
 
 /**
@@ -44,7 +56,10 @@ const checkStatus = response => {
  * @param  {object} [option] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(url, option) {
+export default function request(ourl, option) {
+  currentUrl = ourl;
+  const env = process.env.NODE_ENV;
+  const url = env === 'development' ? `/api${ourl}` : ourl;
   const options = {
     ...option,
   };
@@ -80,6 +95,9 @@ export default function request(url, option) {
         return response.text();
       }
       return response.json();
+    })
+    .then(json => {
+      return interceptor(json);
     })
     .catch(e => {
       const status = e.name;

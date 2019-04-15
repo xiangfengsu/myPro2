@@ -238,6 +238,7 @@ export default form => [
     },
     dictionaryKey: 'CascaderDynamicOptionDic',
     fetchUrl: '/api/topOption',
+    initialValue: [3, 2, 3849],
     loadLeafUrls: [
       {
         cache: false,
@@ -245,6 +246,30 @@ export default form => [
         leafZindex: 2,
         url: '/api/twoOption',
       },
+      {
+        cache: false,
+        queryKey: 'id',
+        leafZindex: 3,
+        url: '/api/threeOption',
+      },
+    ],
+  },
+  {
+    formType: 'CCascaderDynamicOption',
+    isRequired: false,
+    key: 'CCascaderDynamicOption1_2',
+    label: 'CCascaderDynamicOption1_2',
+    initialValue: [3, 31, 3849],
+    colSpan: 8,
+    props: {
+      cache: false,
+    },
+    formitemprops: {
+      hasFeedback: false,
+    },
+    dictionaryKey: 'CascaderDynamicOptionDic1_2',
+    fetchUrl: '/api/topOption_1_2',
+    loadLeafUrls: [
       {
         cache: false,
         queryKey: 'id',

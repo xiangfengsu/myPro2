@@ -25,6 +25,7 @@ const appConfig = {
   ],
   vcodeUrl: env === 'development' ? 'http://test.if.rebornauto.cn/sys/vcode' : '/sys/vcode',
   domain: '',
+  debugLocal: false,
 };
 
 module.exports = {

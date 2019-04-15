@@ -6,7 +6,13 @@ import defaultSettings from '../src/defaultSettings';
 
 const path = require('path');
 
-const { title } = defaultSettings;
+const { title, debugLocal } = defaultSettings;
+const targetSysUrl = debugLocal
+  ? 'http://192.168.1.154:9000'
+  : 'http://118.190.154.11:3000/mock/34';
+const targetApiUrl = debugLocal
+  ? 'http://192.168.1.154:9000'
+  : 'http://118.190.154.11:3000/mock/34';
 const plugins = [
   [
     'umi-plugin-react',
@@ -36,7 +42,7 @@ const plugins = [
         : {}),
     },
   ],
-  ['umi-plugin-routermd', { createRouterMD: false }],
+  ['umi-plugin-routermd', { createRouterMD: true }],
 ];
 
 export default {
@@ -48,7 +54,7 @@ export default {
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
   },
-  // history: 'hash',
+  history: 'hash',
   // 路由配置
   routes: pageRoutes,
   // Theme for antd
@@ -65,8 +71,20 @@ export default {
     pages: path.resolve('src/pages/'),
   },
   proxy: {
-    '/sys': 'http://118.190.154.11:3000/mock/34',
-    '/api': 'http://118.190.154.11:3000/mock/34',
+    '/api/sys': {
+      target: targetSysUrl,
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
+    '/sys': {
+      target: targetSysUrl,
+      changeOrigin: true,
+    },
+    '/api': {
+      target: targetApiUrl,
+      changeOrigin: true,
+      pathRewrite: { '^/api': '' },
+    },
   },
   ignoreMomentLocale: true,
   lessLoaderOptions: {

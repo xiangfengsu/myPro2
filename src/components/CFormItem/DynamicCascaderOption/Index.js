@@ -3,6 +3,19 @@ import { connect } from 'dva';
 
 import { Cascader } from 'antd';
 
+/* eslint no-param-reassign: ["error", { "props": false }] */
+const setChildValue = (pdata, cData, key) => {
+  return pdata.map(item => {
+    if (item.value === key) {
+      item.children = cData;
+    } else if (item.children) {
+      setChildValue(item.children, cData, key);
+    }
+
+    return { ...item };
+  });
+};
+
 @connect(state => ({
   dictionary: state.dictionary,
 }))
@@ -29,23 +42,55 @@ class DynamicCascaderOption extends Component {
   }
 
   componentDidMount() {
-    const {
-      dispatch = window.g_app._store.dispatch,
-      fetchUrl,
-      dictionaryKey,
-      cache = false,
-    } = this.props;
+    const { fetchUrl, dictionaryKey, cache = false, value } = this.props;
     if (fetchUrl !== undefined) {
-      dispatch({
-        type: 'dictionary/query',
-        payload: {
-          fetchUrl,
-          dictionaryKey,
-          cache,
+      this.fetchData({
+        fetchUrl,
+        dictionaryKey,
+        cache,
+        cb: () => {
+          if (value !== undefined) {
+            this.initialLoadLeafData();
+          }
         },
       });
     }
   }
+
+  fetchData = ({ fetchUrl, dictionaryKey, cache, cb }) => {
+    const { dispatch = window.g_app._store.dispatch } = this.props;
+    return dispatch({
+      type: 'dictionary/query',
+      payload: {
+        fetchUrl,
+        dictionaryKey,
+        cache,
+        cb,
+      },
+    });
+  };
+
+  initialLoadLeafData = async () => {
+    const { loadLeafUrls = [], value = [], dictionaryKey } = this.props;
+    // eslint-disable-next-line
+    for (let i = 0; i < loadLeafUrls.length; i++) {
+      const { leafZindex, queryKey, url, cache } = loadLeafUrls[i];
+      const paramValue = value[leafZindex - 2];
+      // eslint-disable-next-line
+      const cData = await this.fetchData({
+        fetchUrl: `${url}?${queryKey}=${paramValue}`,
+        dictionaryKey: `${dictionaryKey}_${paramValue}`,
+        cache,
+      });
+      this.setState(prevState => {
+        const { options } = prevState;
+        const newOption = setChildValue(options, cData, paramValue);
+        return {
+          options: newOption,
+        };
+      });
+    }
+  };
 
   loadData = selectedOptions => {
     const { loadLeafUrls = [], dictionaryKey, dispatch } = this.props;
@@ -64,7 +109,6 @@ class DynamicCascaderOption extends Component {
         cb: data => {
           targetOption.loading = false;
           targetOption.children = data;
-
           this.setState(prevState => {
             return {
               options: [...prevState.options],

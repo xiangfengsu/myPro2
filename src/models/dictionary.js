@@ -29,6 +29,7 @@ export default {
         },
       });
       if (cb) cb(list);
+      return list;
     },
   },
 

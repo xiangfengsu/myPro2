@@ -202,7 +202,7 @@ export default (item, form) => {
     case 'CRangePicker':
       InputType = (
         <CRangePicker
-          placeholder={`请选择${label}`}
+          // placeholder={`请选择${label}`}
           {...defaultProps}
           rules={[...defaultRule, ...rules]}
         />
