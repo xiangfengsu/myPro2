@@ -67,7 +67,7 @@ class DynamicSelect extends Component {
       <Select value={state.selectValue} onChange={this.handleChange} {...restProps}>
         {dictionary[dictionaryKey] &&
           dictionary[dictionaryKey].map(v => (
-            <Option value={v.key} key={v.key}>
+            <Option value={v.key} key={v.key} disabled={v.disabled}>
               {v.value}
             </Option>
           ))}

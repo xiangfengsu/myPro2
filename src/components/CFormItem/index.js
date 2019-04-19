@@ -57,7 +57,11 @@ class WrapFormItem extends Component {
           {getFieldDecorator(name, options)(
             <WrappedComponent {...customprops} {...otherProps}>
               {selectOptions.map(option => (
-                <WrappedComponent.Option key={option.key} value={option.key}>
+                <WrappedComponent.Option
+                  key={option.key}
+                  value={option.key}
+                  disabled={option.disabled}
+                >
                   {option.value}
                 </WrappedComponent.Option>
               ))}
@@ -76,7 +80,7 @@ class WrapFormItem extends Component {
               {selectOptions.map(option => (
                 <WrappedComponent.OptGroup label={option.label} key={option.key}>
                   {option.childrenOptions.map(v => (
-                    <WrappedComponent.Option value={v.key} key={v.key}>
+                    <WrappedComponent.Option value={v.key} key={v.key} disabled={option.disabled}>
                       {v.value}
                     </WrappedComponent.Option>
                   ))}
