@@ -38,7 +38,7 @@ const FormItem = Form.Item;
 @Form.create()
 class Index extends PureComponent {
   state = {
-    currentFormItems: newPageConfig(this.props.form),
+    currentFormItems: newPageConfig(this),
   };
 
   handleSubmit = e => {
@@ -148,6 +148,10 @@ class Index extends PureComponent {
       <Fragment>
         <Card bordered={false} loading={false}>
           <Form layout="vertical" onSubmit={this.handleSubmit}>
+            <Row>
+              <Divider>表单快捷方式</Divider>
+            </Row>
+            <Row gutter={24}>{this.renderFormItem()}</Row>
             <Divider>表单组件方式</Divider>
             <Row gutter={24}>
               <Col lg={8}>
@@ -637,10 +641,7 @@ class Index extends PureComponent {
                 )}
               </Col>
             </Row>
-            <Row>
-              <Divider>表单快捷方式</Divider>
-            </Row>
-            <Row gutter={24}>{this.renderFormItem()}</Row>
+
             <Row>
               <Col key="button">
                 <FormItem>

@@ -1,4 +1,87 @@
-export default form => [
+export default context => [
+  {
+    formType: 'CSelectGroupDynamic',
+    isRequired: false,
+    key: 'selectGroupIndexesDynamic',
+    label: '品牌',
+    colSpan: 8,
+    props: {
+      disabled: false,
+      onChange: value => {
+        const { dispatch } = window.g_app._store;
+        const { setFieldsValue } = context.props.form;
+        dispatch({
+          type: 'dictionary/query',
+          payload: {
+            fetchUrl: `/api/series?id=${value}`,
+            dictionaryKey: 'seriesIdDic',
+            cb: () => {
+              setFieldsValue({
+                seriesId: undefined,
+                modelId: undefined,
+              });
+            },
+          },
+        });
+      },
+    },
+    formitemprops: {
+      hasFeedback: false,
+    },
+    dictionaryKey: 'selectGroupIndexesDynamic',
+    fetchUrl: '/api/brand',
+    hasIndexes: true,
+  },
+
+  {
+    formType: 'CSelectGroupDynamic',
+    isRequired: false,
+    key: 'seriesId',
+    label: '车系',
+    colSpan: 8,
+    props: {
+      disabled: false,
+      onChange: value => {
+        const { dispatch } = window.g_app._store;
+        const { setFieldsValue } = context.props.form;
+        dispatch({
+          type: 'dictionary/query',
+          payload: {
+            fetchUrl: `/api/model?sid=${value}`,
+            dictionaryKey: 'modelIdDic',
+            cb: () => {
+              setFieldsValue({
+                modelId: undefined,
+              });
+            },
+          },
+        });
+      },
+    },
+    formitemprops: {
+      hasFeedback: false,
+    },
+    dictionaryKey: 'seriesIdDic',
+    fetchUrl: '/api/series',
+    hasIndexes: false,
+  },
+  {
+    formType: 'CSelectGroupDynamic',
+    isRequired: false,
+    key: 'modelId',
+    label: '车型',
+    colSpan: 8,
+    props: {
+      disabled: false,
+    },
+    formitemprops: {
+      hasFeedback: false,
+    },
+    dictionaryKey: 'modelIdDic',
+    fetchUrl: '/api/model',
+    hasIndexes: false,
+  },
+
   {
     formType: 'CInput',
     initialValue: '123',
@@ -66,7 +149,7 @@ export default form => [
       disabled: false,
       placeholder: 'CSelect',
       onChange: value => {
-        form.setFieldsValue({
+        context.props.form.setFieldsValue({
           input: value,
         });
       },
@@ -95,7 +178,7 @@ export default form => [
       disabled: false,
       placeholder: 'CSelectDynamic',
       onChange: value => {
-        form.setFieldsValue({
+        context.props.form.setFieldsValue({
           input: value,
         });
       },

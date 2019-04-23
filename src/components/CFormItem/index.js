@@ -60,7 +60,7 @@ class WrapFormItem extends Component {
                 <WrappedComponent.Option
                   key={option.key}
                   value={option.key}
-                  disabled={option.disabled}
+                  disabled={!!option.disabled}
                 >
                   {option.value}
                 </WrappedComponent.Option>
@@ -80,7 +80,7 @@ class WrapFormItem extends Component {
               {selectOptions.map(option => (
                 <WrappedComponent.OptGroup label={option.label} key={option.key}>
                   {option.childrenOptions.map(v => (
-                    <WrappedComponent.Option value={v.key} key={v.key} disabled={option.disabled}>
+                    <WrappedComponent.Option value={v.key} key={v.key} disabled={!!option.disabled}>
                       {v.value}
                     </WrappedComponent.Option>
                   ))}
@@ -91,6 +91,28 @@ class WrapFormItem extends Component {
         </FormItem>
       );
     }
+
+    // if (type === 'CCarModelSelect') {
+    //   const { leafInfo } = otherProps;
+    //   let len = leafInfo.length;
+    //   console.log('otherProps', otherProps);
+    //   return (
+    //     <Row>
+    //       {leafInfo.map(item => {
+    //         const { key, initialValue, ...itemPropsRest } = item;
+    //         return (
+    //           <Col span={8} key={key}>
+    //             <FormItem hasFeedback {...formitemprops}>
+    //               {getFieldDecorator(key, { ...options, initialValue })(
+    //                 <WrappedComponent {...customprops} {...otherProps} {...itemPropsRest} />
+    //               )}
+    //             </FormItem>
+    //           </Col>
+    //         );
+    //       })}
+    //     </Row>
+    //   );
+    // }
 
     if (type === 'CCheckboxGroup' || type === 'CRadioGroup') {
       const { selectOptions = [], itemColSpan = 6, ...restOtherPorps } = otherProps;

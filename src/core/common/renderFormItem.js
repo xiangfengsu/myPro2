@@ -1,5 +1,6 @@
 import React from 'react';
 import CFormItem from '@/components/CFormItem';
+// import CCarModelSelect from '@/components/CFormItem/CarModelSelect/Index.js';
 
 const {
   CInput,
@@ -125,6 +126,17 @@ export default (item, form) => {
         />
       );
       break;
+    // case 'CCarModelSelect':
+    //   InputType = (
+    //     <CCarModelSelect
+    //       placeholder={`请选择${label}`}
+    //       {...defaultProps}
+    //       rules={[...defaultRule, ...rules]}
+    //       leafInfo={item.leafInfo || []}
+    //     />
+    //   );
+    //   break;
+
     case 'CSelectGroup':
       InputType = (
         <CSelectGroup
@@ -143,6 +155,7 @@ export default (item, form) => {
           rules={[...defaultRule, ...rules]}
           dictionaryKey={item.dictionaryKey}
           fetchUrl={item.fetchUrl}
+          hasIndexes={item.hasIndexes || false}
         />
       );
       break;

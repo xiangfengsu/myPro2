@@ -3,7 +3,21 @@ import { connect } from 'dva';
 
 import { Select } from 'antd';
 
+import styles from './index.less';
+
 const { Option } = Select;
+
+function getDom(tagName, name, value) {
+  const selectDom = [];
+  const dom = document.getElementsByTagName(tagName);
+  // eslint-disable-next-line
+  for (let i = 0; i < dom.length; i++) {
+    if (value === dom[i].getAttribute(name)) {
+      selectDom.push(dom[i]);
+    }
+  }
+  return selectDom;
+}
 
 @connect(state => ({
   dictionary: state.dictionary,
@@ -46,6 +60,33 @@ class DynamicSelect extends Component {
     }
   }
 
+  handleLetterClick = key => {
+    const itemComponent = getDom('div', 'title', key)[0].parentNode;
+    if (!itemComponent) return;
+    itemComponent.parentNode.scrollTop = itemComponent.offsetTop;
+  };
+
+  dropdownRender = menuNode => {
+    const { dictionary = {}, dictionaryKey, hasIndexes } = this.props;
+    const dicList = dictionary[dictionaryKey] || [];
+    const letterList = dicList.map(item => item.key);
+
+    if (!hasIndexes) return menuNode;
+
+    return (
+      <div className={styles.modelBox}>
+        <div className={styles.letterBox}>
+          {letterList.map(lett => (
+            <span key={lett} onClick={() => this.handleLetterClick(lett)}>
+              {lett}
+            </span>
+          ))}
+        </div>
+        <div style={{ display: 'inline-block', width: '80%' }}>{menuNode}</div>
+      </div>
+    );
+  };
+
   handleChange = selectValue => {
     if (!('value' in this.props)) {
       this.setState({ selectValue });
@@ -62,20 +103,34 @@ class DynamicSelect extends Component {
 
   render() {
     const { state } = this;
-    const { dictionary = {}, dictionaryKey, ...restProps } = this.props;
+    const { dictionary = {}, dictionaryKey, hasIndexes, ...restProps } = this.props;
+
     return (
-      <Select value={state.selectValue} onChange={this.handleChange} {...restProps}>
-        {dictionary[dictionaryKey] &&
-          dictionary[dictionaryKey].map(option => (
-            <Select.OptGroup label={option.label} key={option.key}>
-              {option.childrenOptions.map(v => (
-                <Option value={v.key} key={v.key}>
-                  {v.value}
-                </Option>
-              ))}
-            </Select.OptGroup>
-          ))}
-      </Select>
+      <div
+        onMouseDown={e => {
+          e.preventDefault();
+          return false;
+        }}
+      >
+        <Select
+          value={state.selectValue}
+          onChange={this.handleChange}
+          dropdownRender={this.dropdownRender}
+          className={styles.modelSelectBox}
+          {...restProps}
+        >
+          {dictionary[dictionaryKey] &&
+            dictionary[dictionaryKey].map(option => (
+              <Select.OptGroup label={option.label} key={option.key}>
+                {option.childrenOptions.map(v => (
+                  <Option value={v.key} key={v.key}>
+                    {v.value}
+                  </Option>
+                ))}
+              </Select.OptGroup>
+            ))}
+        </Select>
+      </div>
     );
   }
 }

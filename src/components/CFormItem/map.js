@@ -113,6 +113,7 @@ export default {
     fieldDecoratorOptions: {},
     options: [],
   },
+
   CSelectDynamic: {
     component: DynamicSelect,
     formitemprops: {},

@@ -1,0 +1,25 @@
+.modelBox {
+  display: flex;
+  :global {
+    .ant-select-dropdown-menu {
+      max-height: 450px;
+    }
+  }
+}
+.letterBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 20%;
+  span {
+    display: block;
+    width: 50%;
+    text-align: center;
+    // margin: 0 auto 12px auto;
+    cursor: pointer;
+    &:hover {
+      background: #e6f7ff;
+    }
+  }
+}
