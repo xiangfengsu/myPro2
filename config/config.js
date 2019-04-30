@@ -21,23 +21,22 @@ const plugins = [
       dva: {
         hmr: true,
       },
-      targets: {
-        ie: 11,
-      },
       locale: {
         enable: false, // default false
         // default: 'zh-CN', // default zh-CN
       },
       dynamicImport: {
         loadingComponent: './components/PageLoading/index',
+        webpackChunkName: true,
+        level: 3,
       },
-      ...(!process.env.TEST && os.platform() === 'darwin'
+      ...(os.platform() === 'darwin'
         ? {
             dll: {
               include: ['dva', 'dva/router', 'dva/saga', 'dva/fetch'],
-              exclude: ['@babel/runtime'],
+              exclude: ['@babel/runtime', 'netlify-lambda'],
             },
-            hardSource: true,
+            hardSource: false,
           }
         : {}),
     },

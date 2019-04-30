@@ -47,6 +47,6 @@ module.exports = {
     'no-underscore-dangle': 0,
   },
   settings: {
-    polyfills: ['fetch', 'promises', 'url'],
+    polyfills: ['fetch', 'Promise', 'URL', 'Object.assign', 'Number.isNaN'],
   },
 };

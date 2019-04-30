@@ -32,11 +32,15 @@ class Index extends PureComponent {
     this.triggerChange(selectValue);
   };
 
-  triggerChange = ({ checked }) => {
+  triggerChange = selectValue => {
     const { onChange } = this.props;
 
     if (onChange) {
-      onChange(checked);
+      if (Array.isArray(selectValue)) {
+        onChange(selectValue);
+      } else if ('checked' in selectValue) {
+        onChange(selectValue.checked);
+      }
     }
   };
 
@@ -97,9 +101,8 @@ class Index extends PureComponent {
         {len > 0 ? (
           <div className="menuTreeBox">
             <Tree
-              showLine
               checkable
-              checkStrictly
+              showLine
               defaultExpandedKeys={checkedValue}
               defaultCheckedKeys={checkedValue}
               onCheck={this.handleChange}

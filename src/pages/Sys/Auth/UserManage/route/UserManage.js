@@ -8,6 +8,7 @@ import MenuTree from './MenuTree';
 import { formaterObjectValue, formItemAddInitValue } from '@/utils/utils';
 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import AuthBlock from '@/components/AuthBlock';
 import DetailFormInfo from './ModalDetailForm';
 import pageConfig from './pageConfig';
 import styles from './Index.less';
@@ -288,13 +289,15 @@ class Index extends PureComponent {
             <div className={styles.tableListForm}>
               {this.renderSearchForm()}
               <div className={styles.tableListOperator}>
-                <Button
-                  icon="plus"
-                  type="primary"
-                  onClick={() => this.showModalVisibel('create', {})}
-                >
-                  新建
-                </Button>
+                <AuthBlock>
+                  <Button
+                    icon="plus"
+                    type="primary"
+                    onClick={() => this.showModalVisibel('create', {})}
+                  >
+                    新建
+                  </Button>
+                </AuthBlock>
               </div>
               {this.renderTable()}
             </div>
