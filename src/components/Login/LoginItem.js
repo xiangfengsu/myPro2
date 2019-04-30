@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
-import { Form, Input, Row, Col } from 'antd';
-import { formatMessage } from 'umi/locale';
+import { Form, Input, Row, Col, Button } from 'antd';
+import omit from 'omit.js';
 import QRcode from '@/components/QRcode/index';
 import ItemMap from './map';
 import LoginContext from './loginContext';
+import styles from './index.less';
 
 const FormItem = Form.Item;
 
 class WrapFormItem extends Component {
   static defaultProps = {
-    getCaptchaButtonText: formatMessage({ id: 'form.captcha' }),
-    getCaptchaSecondText: formatMessage({ id: 'form.captcha.second' }),
+    getCaptchaButtonText: '获取验证码',
+    getCaptchaSecondText: '秒',
+  };
+
+  state = {
+    count: 0,
   };
 
   componentDidMount() {
@@ -23,6 +28,32 @@ class WrapFormItem extends Component {
   componentWillUnmount() {
     clearInterval(this.interval);
   }
+
+  onGetCaptcha = () => {
+    const { onGetCaptcha } = this.props;
+    const result = onGetCaptcha ? onGetCaptcha() : null;
+    if (result === false) {
+      return;
+    }
+    if (result instanceof Promise) {
+      result.then(this.runGetCaptchaCountDown);
+    } else {
+      this.runGetCaptchaCountDown();
+    }
+  };
+
+  runGetCaptchaCountDown = () => {
+    const { countDown } = this.props;
+    let count = countDown || 59;
+    this.setState({ count });
+    this.interval = setInterval(() => {
+      count -= 1;
+      this.setState({ count });
+      if (count === 0) {
+        clearInterval(this.interval);
+      }
+    }, 1000);
+  };
 
   getFormItemOptions = ({ onChange, defaultValue, customprops, rules }) => {
     const options = {
@@ -38,6 +69,7 @@ class WrapFormItem extends Component {
   };
 
   render() {
+    const { count } = this.state;
     const {
       form: { getFieldDecorator },
     } = this.props;
@@ -75,6 +107,28 @@ class WrapFormItem extends Component {
                 statuscode={statuscode}
                 updateStatusCode={updateStatusCode}
               />
+            </Col>
+          </Row>
+        </FormItem>
+      );
+    }
+    if (type === 'Captcha') {
+      const inputProps = omit(otherProps, ['onGetCaptcha', 'countDown']);
+      return (
+        <FormItem>
+          <Row gutter={8}>
+            <Col span={14}>
+              {getFieldDecorator(name, options)(<Input {...customprops} {...inputProps} />)}
+            </Col>
+            <Col span={9} offset={1}>
+              <Button
+                disabled={count}
+                className={styles.getCaptcha}
+                size="large"
+                onClick={this.onGetCaptcha}
+              >
+                {count ? `${count} ${getCaptchaSecondText}` : getCaptchaButtonText}
+              </Button>
             </Col>
           </Row>
         </FormItem>
