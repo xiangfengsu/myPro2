@@ -53,6 +53,7 @@ export default {
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
   },
+  hash: true,
   history: 'hash',
   // 路由配置
   routes: pageRoutes,
