@@ -1,3 +1,4 @@
+import React from 'react';
 import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import router from 'umi/router';
@@ -37,13 +38,13 @@ const checkStatus = response => {
 };
 
 const interceptor = (responseJson = {}) => {
-  const { body, code = 200, message } = responseJson;
+  const { code = 200, message } = responseJson;
   if (code !== 200 && currentUrl !== '/sys/doLogin') {
-    const bodyInfo = typeof body === 'object' ? JSON.stringify(body, null, 2) : '';
+    // const bodyInfo = typeof body === 'object' ? JSON.stringify(body, null, 2) : '';
     // console.log(bodyInfo);
     notification.error({
       message: `错误提示`,
-      description: `${bodyInfo} \n ${message}`,
+      description: <p style={{ whiteSpace: 'pre-line' }}>{message}</p>,
     });
   }
   return responseJson;
