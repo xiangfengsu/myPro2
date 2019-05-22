@@ -7,12 +7,8 @@ import defaultSettings from '../src/defaultSettings';
 const path = require('path');
 
 const { title, debugLocal } = defaultSettings;
-const targetSysUrl = debugLocal
-  ? 'http://192.168.1.154:9000'
-  : 'http://118.190.154.11:3000/mock/34';
-const targetApiUrl = debugLocal
-  ? 'http://192.168.1.154:9000'
-  : 'http://118.190.154.11:3000/mock/34';
+const targetSysUrl = debugLocal ? 'http://192.168.1.154:9000' : 'http://yapi.rebornauto.cn/mock/11';
+const targetApiUrl = debugLocal ? 'http://192.168.1.154:9000' : 'http://yapi.rebornauto.cn/mock/11';
 const plugins = [
   [
     'umi-plugin-react',

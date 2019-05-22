@@ -48,17 +48,12 @@ export default {
   Mobile: {
     props: {
       size: 'large',
-      prefix: <Icon type="mobile" className={styles.prefixIcon} />,
       placeholder: '请输入手机号码',
     },
     rules: [
       {
         required: true,
         message: '请输入手机号码!',
-      },
-      {
-        pattern: /^1\d{10}$/,
-        message: '手机号格式错误!',
       },
     ],
   },

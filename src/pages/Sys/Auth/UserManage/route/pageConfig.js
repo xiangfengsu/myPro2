@@ -210,6 +210,7 @@ export default () => ({
       isRequired: true,
       key: 'mobile',
       label: '手机号',
+      type: 'add',
       colSpan: 24,
       props: {
         disabled: false,

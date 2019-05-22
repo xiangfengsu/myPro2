@@ -55,13 +55,13 @@ export default {
           yield put(routerRedux.replace('/'));
         }
         if (code === 202) {
-          const { mobile } = body;
+          const { mobiles } = body;
           yield put({
             type: 'changeLoginStatus',
             payload: {
               status: 'ok',
               isVaildMobile: true,
-              mobileValue: mobile,
+              mobileValue: mobiles,
             },
           });
         }

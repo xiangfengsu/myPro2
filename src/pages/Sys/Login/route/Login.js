@@ -94,7 +94,8 @@ class LoginPage extends Component {
           name="mobile"
           placeholder={mPlaceholder}
           maxLength={11}
-          defaultValue={login.mobileValue}
+          // defaultValue={login.mobileValue}
+          selectOptions={login.mobileValue}
           disabled
         />
         <Captcha

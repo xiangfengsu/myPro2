@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Row, Col, Button } from 'antd';
+import { Form, Input, Row, Col, Button, Select } from 'antd';
 import omit from 'omit.js';
 import QRcode from '@/components/QRcode/index';
 import ItemMap from './map';
@@ -134,6 +134,32 @@ class WrapFormItem extends Component {
         </FormItem>
       );
     }
+
+    if (type === 'Mobile') {
+      const { selectOptions = [] } = this.props;
+      if (selectOptions.length > 0) {
+        const [firstValue] = selectOptions;
+        options.initialValue = firstValue;
+
+        return (
+          <FormItem>
+            {getFieldDecorator(name, options)(
+              <Select size="large">
+                {selectOptions.map(opt => {
+                  return (
+                    <Select.Option value={opt} key={opt}>
+                      {opt}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
+            )}
+          </FormItem>
+        );
+      }
+      throw new Error('mobiles length must be greater than 1');
+    }
+
     return (
       <FormItem>
         {getFieldDecorator(name, options)(<Input {...customprops} {...otherProps} />)}

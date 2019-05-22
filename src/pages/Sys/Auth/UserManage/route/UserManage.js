@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'dva';
 import { Form, Card, Modal, Button, Popconfirm } from 'antd';
 import cloneDeep from 'lodash/cloneDeep';
+import findLastIndex from 'lodash/findLastIndex';
 import TableList from '@/components/GeneralTableList/Index';
 import SearchForms from '@/components/GeneralSearchForm/Index';
 import MenuTree from './MenuTree';
@@ -19,7 +20,7 @@ import styles from './Index.less';
   dictionary,
 }))
 @Form.create()
-class Index extends PureComponent {
+class Index extends React.Component {
   constructor(props) {
     super(props);
     this.pageConfig = pageConfig(props.form);
@@ -41,9 +42,29 @@ class Index extends PureComponent {
     });
   }
 
-  updateFormItems = (record = {}) => {
+  updateFormItems = (record = {}, type = '') => {
     const detailFormItems = cloneDeep(this.pageConfig.detailFormItems);
+    if (type === 'update') {
+      const { mobiles = [] } = record;
+      if (mobiles.length > 1) {
+        const mobileItem = detailFormItems.find(item => item.key === 'mobile');
+        const lastIndex = findLastIndex(detailFormItems, item => item.type === 'add');
+        const mobileItems = mobiles.map((m, index) => {
+          const newItem = cloneDeep(mobileItem);
+          Object.assign(newItem, {
+            key: `${Date.now()}_${index + 1}_mobile`,
+            initialValue: m,
+          });
+          return newItem;
+        });
+        detailFormItems.splice(lastIndex === -1 ? 1 : lastIndex + 1, 0, ...mobileItems);
+      }
+    }
     const newDetailFormItems = formItemAddInitValue(detailFormItems, record);
+    this.setState({ detailFormItems: newDetailFormItems });
+  };
+
+  updateFormMobilesItems = newDetailFormItems => {
     this.setState({ detailFormItems: newDetailFormItems });
   };
 
@@ -58,7 +79,7 @@ class Index extends PureComponent {
 
   showModalVisibel = (type, record, isShowMenuTree = false) => {
     if (!isShowMenuTree) {
-      this.updateFormItems(record);
+      this.updateFormItems(record, type);
       this.changeModalVisibel(true);
       this.setState({
         showModalType: type,
@@ -141,6 +162,19 @@ class Index extends PureComponent {
         if (err) return;
         const { showModalType } = this.state;
         const fields = formaterObjectValue(fieldsValue);
+        const mobiles = [];
+        const fieldsList = Object.keys(fields);
+        for (let i = 0; i < fieldsList.length; i += 1) {
+          const key = fieldsList[i];
+          if (/mobile/gi.test(key)) {
+            mobiles.push(fields[key]);
+            if (key !== 'mobile') {
+              delete fields[key]; // eslint-disable
+            }
+          }
+        }
+
+        Object.assign(fields, { mobiles });
         if (showModalType === 'create') {
           this.props.dispatch({
             type: 'usermanage/add',
@@ -276,7 +310,7 @@ class Index extends PureComponent {
   };
 
   render() {
-    const { detailFormItems, isShowMenuTree, currentItem } = this.state;
+    const { detailFormItems, isShowMenuTree, currentItem, showModalType } = this.state;
     const {
       usermanage: { modalVisible, confirmLoading },
       dictionary,
@@ -302,6 +336,7 @@ class Index extends PureComponent {
         </Card>
 
         <Modal
+          maskClosable={false}
           destroyOnClose
           confirmLoading={confirmLoading}
           visible={modalVisible}
@@ -317,6 +352,8 @@ class Index extends PureComponent {
               }}
               formItems={detailFormItems}
               dictionary={dictionary}
+              modalType={showModalType}
+              updateFormItems={this.updateFormMobilesItems}
             />
           ) : (
             <MenuTree
