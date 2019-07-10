@@ -15,6 +15,7 @@ import DynamicCascaderOption from './DynamicCascaderOption/Index';
 import UploadImg from './UploadImg/Index';
 import DynamicSelectTree from './DynamicSelectTree/Index';
 import DynamicTree from './DynamicTree/Index';
+import CheckboxGroupImage from './CheckBoxGroupImage/Index';
 
 const { MonthPicker, RangePicker } = DatePicker;
 
@@ -233,6 +234,16 @@ export default {
     fieldDecoratorOptions: {},
     itemColSpan: 6,
     selectOptions: [],
+  },
+  CCheckboxGroupImage: {
+    component: CheckboxGroupImage,
+    formitemprops: {},
+    props: {
+      style: { width: '100%', lineHeight: 'unset' },
+    },
+    rules: [],
+    fieldDecoratorOptions: {},
+    itemColSpan: 6,
   },
   CRadioGroup: {
     component: Radio,

@@ -57,7 +57,7 @@ class BaseSetting extends PureComponent {
             <Description term="手机号">{currentUser.mobile}</Description>
             <Description term="昵称">{currentUser.nickname}</Description>
             <Description term="邮箱">{currentUser.email}</Description>
-            <Description term="部门">{currentUser.sysDept.name}</Description>
+            <Description term="部门">{currentUser.sysDept && currentUser.sysDept.name}</Description>
             <Description term="角色">
               {currentUser.sysRoleList.map(item => (
                 <Tag color="cyan" key={item.id}>

@@ -433,6 +433,49 @@ export default context => [
     },
   },
   {
+    formType: 'CCheckboxGroupImage',
+    isRequired: false,
+    initialValue: [
+      // 'http://dummyimage.com/1000x1000/799bf2/FFF&text=test.jpg',
+      'http://dummyimage.com/1000x1000/bef279/FFF&text=test.jpg',
+      'http://dummyimage.com/1000x1000/f279e1/FFF&text=test.jpg',
+      // 'http://dummyimage.com/1000x1000/79f2df/FFF&text=test.jpg',
+      'http://dummyimage.com/1000x1000/f2bb79/FFF&text=test.jpg',
+    ],
+    key: 'CCheckboxGroupImage',
+    label: 'CCheckboxGroupImage',
+    colSpan: 24,
+    props: {
+      disabled: false,
+      placeholder: 'CCheckboxGroupImage',
+    },
+    formitemprops: {
+      hasFeedback: false,
+    },
+    selectOptions: [
+      {
+        label: 'http://dummyimage.com/1000x1000/799bf2/FFF&text=test.jpg',
+        value: 'http://dummyimage.com/1000x1000/799bf2/FFF&text=test.jpg',
+      },
+      {
+        label: 'http://dummyimage.com/1000x1000/bef279/FFF&text=test.jpg',
+        value: 'http://dummyimage.com/1000x1000/bef279/FFF&text=test.jpg',
+      },
+      {
+        label: 'http://dummyimage.com/1000x1000/f279e1/FFF&text=test.jpg',
+        value: 'http://dummyimage.com/1000x1000/f279e1/FFF&text=test.jpg',
+      },
+      {
+        label: 'http://dummyimage.com/1000x1000/79f2df/FFF&text=test.jpg',
+        value: 'http://dummyimage.com/1000x1000/79f2df/FFF&text=test.jpg',
+      },
+      {
+        label: 'http://dummyimage.com/1000x1000/f2bb79/FFF&text=test.jpg',
+        value: 'http://dummyimage.com/1000x1000/f2bb79/FFF&text=test.jpg',
+      },
+    ],
+  },
+  {
     formType: 'CCheckboxGroup',
     isRequired: false,
     key: 'checkboxGroup',

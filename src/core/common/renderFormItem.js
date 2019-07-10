@@ -20,6 +20,7 @@ const {
   CMonthPicker,
   CTimePicker,
   CCheckboxGroup,
+  CCheckboxGroupImage,
   CRadioGroup,
   CTextArea,
   CUpload,
@@ -236,6 +237,16 @@ export default (item, form) => {
           placeholder={`请选择${label}`}
           {...defaultProps}
           rules={[...defaultRule, ...rules]}
+        />
+      );
+      break;
+    case 'CCheckboxGroupImage':
+      InputType = (
+        <CCheckboxGroupImage
+          placeholder={`请选择${label}`}
+          {...defaultProps}
+          rules={[...defaultRule, ...rules]}
+          selectOptions={item.selectOptions || []}
         />
       );
       break;
