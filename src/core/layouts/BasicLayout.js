@@ -16,12 +16,14 @@ import SettingDrawer from '@/components/SettingDrawer';
 import logo from '@/assets/logo.svg';
 import Exception403 from '@/pages/Sys/Exception/403';
 import defaultSettings from '@/defaultSettings';
+import PageTabs from '@/components/PageTabs';
+
 import Footer from './Footer';
 import Header from './Header';
 import Context from './MenuContext';
 
 const { Content } = Layout;
-const { title, whiteListPath, isLocalMenus } = defaultSettings;
+const { title, whiteListPath, isLocalMenus, pageTabs = false } = defaultSettings;
 
 // Conversion router to menu.
 function formatter(data) {
@@ -172,7 +174,8 @@ class BasicLayout extends React.PureComponent {
       currentUser: { menuList = [] },
     } = this.props;
     if (isLocalMenus) {
-      return memoizeOneFormatter(routes);
+      const routerList = memoizeOneFormatter(routes);
+      return routerList;
     }
     return memoizeOneFormatter(menuList);
   }
@@ -225,7 +228,7 @@ class BasicLayout extends React.PureComponent {
   getContentStyle = () => {
     const { fixedHeader } = this.props;
     return {
-      margin: '24px 24px 0',
+      margin: pageTabs ? 'unset' : '24px 24px 0',
       paddingTop: fixedHeader ? 64 : 0,
     };
   };
@@ -267,12 +270,15 @@ class BasicLayout extends React.PureComponent {
       children,
       location: { pathname },
       currentUser = {},
+      // fixedHeader,
     } = this.props;
 
     const { menuList = [] } = currentUser;
     const { isMobile } = this.state;
     const isTop = PropsLayout === 'topmenu';
     const menuData = this.getMenuData();
+    // let contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
+    // contentStyle = pageTabs ? { ...contentStyle, margin: 'unset' } : { ...contentStyle };
     const layout = (
       <Layout>
         {isTop && !isMobile ? null : (
@@ -300,12 +306,16 @@ class BasicLayout extends React.PureComponent {
             {...this.props}
           />
           <Content style={this.getContentStyle()}>
-            <Authorized
-              authority={() => this.getMenuAuthorized(pathname)}
-              noMatch={<Exception403 />}
-            >
-              {children}
-            </Authorized>
+            {pageTabs ? (
+              <PageTabs originalMenuData={menuData} {...this.props} />
+            ) : (
+              <Authorized
+                authority={() => this.getMenuAuthorized(pathname)}
+                noMatch={<Exception403 />}
+              >
+                {children}
+              </Authorized>
+            )}
           </Content>
           <Footer />
         </Layout>

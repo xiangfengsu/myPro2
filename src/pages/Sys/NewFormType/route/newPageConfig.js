@@ -1,5 +1,44 @@
 export default context => [
   {
+    formType: 'CUpload',
+    isRequired: false,
+    key: 'upload1',
+    label: 'CUpload1',
+    colSpan: 24,
+    initialValue: [
+      {
+        uid: -1, // 不能为空
+        name: 'xxx.png',
+        status: 'done', // 不能为空
+        url:
+          'https://testfile.rebornauto.cn/aliyunNAS/img/2019-08-01/2103/mortgagePictureUrl/58b25a32646a405886db3ae134e9d133.pdf', // 不能为空
+        thumbUrl:
+          'https://testfile.rebornauto.cn/aliyunNAS/img/2019-08-01/2103/mortgagePictureUrl/58b25a32646a405886db3ae134e9d133.pdf', // 不能为空  值同url
+      },
+      {
+        uid: -2, // 不能为空
+        name: 'xxx.png',
+        status: 'done', // 不能为空
+        url: 'http://dummyimage.com/1000x1000/8d79f2/FFF&text=@word.jpg', // 不能为空
+        thumbUrl: 'http://dummyimage.com/1000x1000/8d79f2/FFF&text=@word.jpg', // 不能为空  值同url
+      },
+    ],
+
+    props: {
+      disabled: false,
+      placeholder: 'CUpload',
+      multiple: true,
+    },
+    formitemprops: {
+      hasFeedback: false,
+    },
+
+    action: '/sys/file/upload',
+    listType: 'picture-card',
+    maxFileCounts: 20,
+    maxFileSize: 1,
+  },
+  {
     formType: 'CSelectGroupDynamic',
     isRequired: false,
     key: 'selectGroupIndexesDynamic',
@@ -454,8 +493,10 @@ export default context => [
     },
     selectOptions: [
       {
-        label: 'http://dummyimage.com/1000x1000/799bf2/FFF&text=test.jpg',
-        value: 'http://dummyimage.com/1000x1000/799bf2/FFF&text=test.jpg',
+        label:
+          'https://testfile.rebornauto.cn/aliyunNAS/img/2019-08-01/2103/mortgagePictureUrl/58b25a32646a405886db3ae134e9d133.pdf',
+        value:
+          'https://testfile.rebornauto.cn/aliyunNAS/img/2019-08-01/2103/mortgagePictureUrl/58b25a32646a405886db3ae134e9d133.pdf',
       },
       {
         label: 'http://dummyimage.com/1000x1000/bef279/FFF&text=test.jpg',
@@ -535,24 +576,5 @@ export default context => [
     formitemprops: {
       hasFeedback: false,
     },
-  },
-  {
-    formType: 'CUpload',
-    isRequired: false,
-    key: 'upload1',
-    label: 'CUpload',
-    colSpan: 24,
-    props: {
-      disabled: false,
-      placeholder: 'CUpload',
-    },
-    formitemprops: {
-      hasFeedback: false,
-    },
-
-    action: '/sys/file/upload',
-    listType: 'picture-card',
-    maxFileCounts: 3,
-    maxFileSize: 1,
   },
 ];

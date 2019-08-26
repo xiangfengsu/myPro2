@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Checkbox, Row, Col } from 'antd';
-import Lightbox from 'react-lightbox-component';
-import 'react-lightbox-component/build/css/index.css';
+import { Document, Page } from 'react-pdf';
+
+import Lightbox from 'lightbox-component2';
 import styles from './index.less';
+
+const extensionHandle = text => /^https?.*(pdf|PDF)$/.test(text);
 
 export default class CheckboxGroupImage extends Component {
   static getDerivedStateFromProps(nextProps) {
@@ -53,16 +56,30 @@ export default class CheckboxGroupImage extends Component {
     }));
   };
 
-  renderImageFunc = (idx, image, toggleLightbox, width, height) => (
-    <img
-      alt=""
-      key={idx}
-      src={image.src}
-      className="img-circle"
-      style={{ width, height, display: 'none' }}
-      onClick={toggleLightbox.bind(null, idx)}
-    />
-  );
+  renderImageFunc = (idx, image, toggleLightbox, width, height) => {
+    return (
+      <img
+        alt=""
+        key={idx}
+        src={image.src}
+        className="img-circle"
+        style={{ width, height, display: 'none' }}
+        onClick={toggleLightbox.bind(null, idx)}
+      />
+    );
+  };
+
+  renderLightboxThumb = src => {
+    const isPdf = extensionHandle(src);
+    if (isPdf) {
+      return (
+        <Document file={src} style={{ width: '100%' }}>
+          <Page pageNumber={1} />
+        </Document>
+      );
+    }
+    return <img src={src} alt="" style={{ width: '100%', height: '100%' }} />;
+  };
 
   render() {
     const { selectValue = [] } = this.state;
@@ -79,7 +96,8 @@ export default class CheckboxGroupImage extends Component {
                     className={styles['checkbox-group-wrap-img']}
                     onClick={() => this.handlePreview(index)}
                   >
-                    <img src={item.value} alt="" style={{ width: '100%', height: '100%' }} />
+                    {this.renderLightboxThumb(item.value)}
+                    {/* <img src={item.value} alt="" style={{ width: '100%', height: '100%' }} /> */}
                   </div>
                   <Checkbox value={item.value} />
                 </div>

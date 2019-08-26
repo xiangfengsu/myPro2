@@ -24,11 +24,12 @@
   "dependencies": {
     "@antv/data-set": "^0.10.2",
     "@babel/runtime": "^7.4.4",
-    "antd": "^3.16.6",
+    "antd": "^3.20.7",
     "classnames": "^2.2.6",
     "dva": "^2.4.1",
     "dva-model-extend": "^0.1.2",
     "enquire-js": "^0.2.1",
+    "lightbox-component2": "^1.0.0",
     "lodash": "^4.17.11",
     "lodash-decorators": "^6.0.1",
     "memoize-one": "^5.0.4",
@@ -44,9 +45,8 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.8.6",
     "react-fittext": "^1.0.0",
-    "react-lightbox-component": "^1.2.1",
-    "umi": "^2.6.16"
-
+    "react-pdf": "^4.1.0",
+    "umi": "^2.8.16"
   },
   "devDependencies": {
     "@types/react": "^16.8.15",

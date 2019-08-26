@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Upload, Icon, Button, Modal, message } from 'antd';
-import Lightbox from 'react-lightbox-component';
-import 'react-lightbox-component/build/css/index.css';
+import Lightbox from 'lightbox-component2';
 
-const regpHandle = text => /^http.*(gif|png|jpe?g|GIF|PNG|JPE?G)$/.test(text);
+const regpHandle = text => /^https?.*(gif|png|jpe?g|GIF|PNG|JPE?G)$/.test(text);
+const regpPdfHandle = text => /^https?.*(pdf|PDF)$/.test(text);
 
 class UploadImg extends Component {
   static getDerivedStateFromProps(nextProps) {
@@ -86,8 +86,7 @@ class UploadImg extends Component {
 
   handleChange = ({ file, fileList }) => {
     if (file.flag) return;
-    const { listType } = this.props;
-    const { status } = file;
+    const { status, thumbUrl } = file;
     if (status === 'done') {
       message.success(`${file.name} 上传成功！.`);
     } else if (status === 'error') {
@@ -101,10 +100,11 @@ class UploadImg extends Component {
       }
       return true;
     });
-    if (listType === 'text') {
+    if (thumbUrl === '') {
       // eslint-disable-next-line
       fileList = fileList.map(file => {
         // eslint-disable-line
+
         if (file.response) {
           file.url = file.response.body; // eslint-disable-line
         }
@@ -123,7 +123,7 @@ class UploadImg extends Component {
       .filter(
         fl =>
           // eslint-disable-line
-          fl.status === 'done' && regpHandle(fl.response ? fl.response.body : fl.url)
+          fl.status === 'done'
       )
       .map((f = {}) => ({
         uid: f.uid,
@@ -134,12 +134,15 @@ class UploadImg extends Component {
   };
 
   handlePreview = file => {
-    if (!file.thumbUrl) return;
-    if (!regpHandle(file.response ? file.response.body : file.url)) {
-      message.error('该文件不是图片类型，无法预览');
+    // console.log('file111', file);
+    const url = file.response ? file.response.body : file.url;
+    if (!regpHandle(url) && !regpPdfHandle(url)) {
+      window.open(url);
       return;
     }
+
     const carouserImages = this.getCarouserImages();
+    // console.log('carouserImages', carouserImages);
     const carouserFirstIndex = carouserImages.findIndex(cfile => cfile.uid === file.uid);
     if (this.lightBoxRef.current) {
       this.lightBoxRef.current.toggleLightbox(carouserFirstIndex === -1 ? 0 : carouserFirstIndex);
@@ -163,7 +166,6 @@ class UploadImg extends Component {
       case 'picture-card':
         content = (
           <div>
-            {' '}
             <Icon type="plus" />
             <div className="ant-upload-text">上传</div>
           </div>
@@ -182,6 +184,11 @@ class UploadImg extends Component {
     }
     return content;
   };
+
+  // previewFile = (file)=>{
+  //   console.log('file',file);
+  //   return Promise.resolve();
+  // }
 
   renderImageFunc = (idx, image, toggleLightbox, width, height) => (
     <img
@@ -207,6 +214,7 @@ class UploadImg extends Component {
           multiple={multiple}
           listType={listType}
           fileList={fileList}
+          // previewFile={this.previewFile}
           onPreview={listType === 'text' ? null : this.handlePreview}
           onChange={this.handleChange}
           beforeUpload={this.beforeUpload}

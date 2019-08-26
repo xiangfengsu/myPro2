@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Upload, Icon, Button, Modal, message } from 'antd';
-import Lightbox from 'react-lightbox-component';
-import 'react-lightbox-component/build/css/index.css';
+import Lightbox from 'lightbox-component2';
 
 const regpHandle = text => /^http.*(gif|png|jpe?g|GIF|PNG|JPE?G)$/.test(text);
 

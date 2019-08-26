@@ -1,13 +1,17 @@
 import React from 'react';
 import Link from 'umi/link';
-import PageHeader from '@/components/PageHeader';
 import { connect } from 'dva';
-import GridContent from './GridContent';
-import styles from './index.less';
+import PageHeader from '@/components/PageHeader';
+import defaultSettings from '@/defaultSettings';
 import MenuContext from '@/core/layouts/MenuContext';
 
+import GridContent from './GridContent';
+import styles from './index.less';
+
+const { pageTabs = false } = defaultSettings;
+
 const PageHeaderWrapper = ({ children, contentWidth, wrapperClassName, top, ...restProps }) => (
-  <div style={{ margin: '-24px -24px 0' }} className={wrapperClassName}>
+  <div style={pageTabs ? null : { margin: '-24px -24px 0' }} className={wrapperClassName}>
     {top}
     <MenuContext.Consumer>
       {value => (

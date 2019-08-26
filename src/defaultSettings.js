@@ -27,6 +27,7 @@ const appConfig = {
   domain: '',
   debugLocal: false,
   mobileValid: true,
+  pageTabs: false,
 };
 
 module.exports = {
